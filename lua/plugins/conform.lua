@@ -1,5 +1,7 @@
 local opts = {
 	formatters_by_ft = {
+		sh = { "beautysh" },
+		zsh = { "beautysh" },
 		lua = { "stylua" },
 		-- Conform will run multiple formatters sequentially
 		python = { "black" },

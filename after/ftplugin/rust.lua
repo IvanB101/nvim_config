@@ -20,6 +20,10 @@ remap("n", "K", function()
 	vim.cmd.RustLsp({ "hover", "actions" })
 end, opts)
 
+remap("n", "<leader>E", function()
+	vim.cmd.RustLsp("explainError")
+end, opts)
+
 remap("n", "<C-e>", "<cmd>RustLsp expandMacro<cr>", { desc = "expand macro" })
 
 vim.api.nvim_create_user_command("Dbg", function()

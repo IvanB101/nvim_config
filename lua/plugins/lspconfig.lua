@@ -23,7 +23,22 @@ capabilities.textDocument.completion.completionItem = {
 	},
 }
 
+local formatters = require("config.formatters")
 local function load_mappings(opts)
+	local ft = vim.bo[opts.buffer].filetype
+	for type, _ in pairs(formatters) do
+		if ft == type then
+			remap({ "n", "x" }, "<leader>fm", function()
+				require("conform").format({ async = true })
+			end, opts)
+			goto formatter_overrided
+		end
+	end
+	remap({ "n", "x" }, "<leader>fm", function()
+		vim.lsp.buf.format({ async = true })
+	end, opts)
+	::formatter_overrided::
+
 	remap("n", "K", vim.lsp.buf.hover, opts)
 	remap("n", "gd", vim.lsp.buf.definition, opts)
 	remap("n", "gD", vim.lsp.buf.declaration, opts)
@@ -32,9 +47,6 @@ local function load_mappings(opts)
 	remap("n", "gr", vim.lsp.buf.references, opts)
 	remap("n", "gs", vim.lsp.buf.signature_help, opts)
 	remap("n", "<leader>ra", vim.lsp.buf.rename, opts)
-	remap({ "n", "x" }, "<leader>fm", function()
-		vim.lsp.buf.format({ async = true })
-	end, opts)
 	remap("n", "<leader>a", vim.lsp.buf.code_action, opts)
 end
 

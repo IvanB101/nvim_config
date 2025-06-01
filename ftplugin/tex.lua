@@ -1,1 +1,1 @@
-vim.cmd('runtime! ftplugin/plaintext.lua')
+vim.cmd("runtime! ftplugin/plaintext.lua")

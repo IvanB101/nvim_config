@@ -1,3 +1,3 @@
 return {
-    filetypes = { "glsl" }
+	filetypes = { "glsl" },
 }

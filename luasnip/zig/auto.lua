@@ -1,5 +1,3 @@
 return {
-    s({ trig = ";c", snippetType = "autosnippet", desc = "c array" },
-        t("[*c]")
-    ),
+	s({ trig = ";c", snippetType = "autosnippet", desc = "c array" }, t("[*c]")),
 }

@@ -1,9 +1,9 @@
 return {
-    'akinsho/bufferline.nvim',
-    version = "*",
-    opts = {
-        options = {
-            mode = "tabs"
-        }
-    }
+	"akinsho/bufferline.nvim",
+	version = "*",
+	opts = {
+		options = {
+			mode = "tabs",
+		},
+	},
 }

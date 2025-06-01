@@ -28,15 +28,15 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.g.lua_snippets_path = "~/.config/nvim/lua/snippets/"
-vim.g.markdown_fenced_languages = { 'cpp' }
+vim.g.markdown_fenced_languages = { "cpp" }
 
 vim.opt.backup = false
 vim.opt.writebackup = false
 
-vim.g.netrw_list_hide="^\\./$,^\\.\\./$"
+vim.g.netrw_list_hide = "^\\./$,^\\.\\./$"
 
 vim.opt.ignorecase = true
 -- for working with latex
-vim.g.vimtex_quickfix_open_on_warning = 0;
+vim.g.vimtex_quickfix_open_on_warning = 0
 vim.g.vimtex_view_method = "zathura"
-vim.g.vimtex_view_general_viewer = 'okular'
+vim.g.vimtex_view_general_viewer = "okular"

@@ -3,8 +3,11 @@ local utils = require("utils")
 
 remap("n", "<leader>e", vim.cmd.Ex, { desc = "open netrw" })
 
-remap("n", "L", "<tab>", { desc = "jump forwards in jump list" })
-remap("n", "H", "<C-o>", { desc = "jump backwards in jump list" })
+remap("n", "<A-l>", "<tab>", { desc = "jump forwards in jump list" })
+remap("n", "<A-h>", "<C-o>", { desc = "jump backwards in jump list" })
+
+remap({ "n", "v", "o" }, "L", "$", { desc = "go to line end" })
+remap({ "n", "v", "o" }, "H", "^", { desc = "go to line start" })
 
 remap("n", "gn", function()
 	vim.diagnostic.jump({ count = 1 })
@@ -19,6 +22,9 @@ remap("n", "<s-tab>", "gT", { desc = "go to previos tab" })
 remap("n", "D", vim.diagnostic.open_float, { desc = "open float diagnostic" })
 
 remap("n", "<leader>rp", ":%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>", {
+	desc = "replace all ocurrencies",
+})
+remap("v", "<leader>rp", 'y:%s/<C-r>"/<C-r>"/gI<Left><Left><Left>', {
 	desc = "replace all ocurrencies",
 })
 remap("v", "<leader>sr", 'y/<C-r>"<cr>', {
@@ -58,14 +64,14 @@ remap("n", "<leader>tc", function()
 	utils.editor.replace_word_under_cursor(utils.general.toggle_case)
 end, { desc = "toggle case of word under cursor" })
 
-remap("i", "<C-j>", "<down>", { desc = "down in insert mode" })
-remap("i", "<C-k>", "<up>", { desc = "up in insert mode" })
-remap("i", "<C-h>", "<left>", { desc = "left in insert mode" })
-remap("i", "<C-l>", "<right>", { desc = "right in insert mode" })
+remap("i", "<A-j>", "<down>", { desc = "down in insert mode" })
+remap("i", "<A-k>", "<up>", { desc = "up in insert mode" })
+remap("i", "<A-h>", "<left>", { desc = "left in insert mode" })
+remap("i", "<A-l>", "<right>", { desc = "right in insert mode" })
 
-remap("c", "<C-j>", "<left>", { desc = "go left one character" })
-remap("c", "<C-k>", "<right>", { desc = "go right one character" })
-remap("c", "<C-h>", "<s-left>", { desc = "go left one word" })
-remap("c", "<C-l>", "<c-right>", { desc = "go right one word" })
+remap("c", "<A-j>", "<left>", { desc = "go left one character" })
+remap("c", "<A-k>", "<right>", { desc = "go right one character" })
+remap("c", "<A-h>", "<s-left>", { desc = "go left one word" })
+remap("c", "<A-l>", "<c-right>", { desc = "go right one word" })
 
 remap("c", "<C-c>", "\\(\\)<left><left>", { desc = "open capture group" })

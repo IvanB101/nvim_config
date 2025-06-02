@@ -50,13 +50,13 @@ local bundles = {}
 local mason_path = vim.fn.glob(vim.fn.stdpath("data") .. "/mason/")
 local install_path = mason_path .. "packages/jdtls/"
 vim.list_extend(bundles, vim.split(vim.fn.glob(mason_path .. "packages/java-test/extension/server/*.jar"), "\n"))
-vim.list_extend(
-	bundles,
-	vim.split(
-		vim.fn.glob(mason_path .. "packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar"),
-		"\n"
-	)
-)
+-- vim.list_extend(
+-- 	bundles,
+-- 	vim.split(
+-- 		vim.fn.glob(mason_path .. "packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar"),
+-- 		"\n"
+-- 	)
+-- )
 
 local config = {
 	cmd = {
@@ -67,7 +67,10 @@ local config = {
 		"-Dlog.protocol=true",
 		"-Dlog.level=ALL",
 		"-javaagent:" .. install_path .. "lombok.jar",
-		"-Xms1g",
+		"-Xms2g",
+		"-Xmx4g",
+		"-XX:ParallelGCThreads=4",
+		"-XX:ConcGCThreads=2",
 		"--module-path",
 		root_dir,
 		"--add-opens",
@@ -118,6 +121,9 @@ local config = {
 					template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
 				},
 			},
+			referencesCodeLens = { enabled = false },
+			implementationsCodeLens = { enabled = false },
+			inlayHints = { parameterNames = { enabled = "none" } },
 		},
 	},
 	init_options = {
@@ -125,9 +131,9 @@ local config = {
 	},
 	on_attach = function(client, bufnr)
 		lsp_config.on_attach(client, bufnr)
-		local _, _ = pcall(vim.lsp.codelens.refresh)
-		require("jdtls.dap").setup_dap_main_class_configs()
-		jdtls.setup_dap({ hotcodereplace = "auto" })
+		-- local _, _ = pcall(vim.lsp.codelens.refresh)
+		-- require("jdtls.dap").setup_dap_main_class_configs()
+		-- jdtls.setup_dap({ hotcodereplace = "auto" })
 	end,
 }
 

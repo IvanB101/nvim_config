@@ -31,13 +31,13 @@ local function load_mappings(opts)
 			remap({ "n", "x" }, "<leader>fm", function()
 				require("conform").format({ async = true })
 			end, opts)
-			goto formatter_overrided
+			goto formatter_setup
 		end
 	end
 	remap({ "n", "x" }, "<leader>fm", function()
 		vim.lsp.buf.format({ async = true })
 	end, opts)
-	::formatter_overrided::
+	::formatter_setup::
 
 	remap("n", "K", vim.lsp.buf.hover, opts)
 	remap("n", "gd", vim.lsp.buf.definition, opts)
@@ -53,6 +53,14 @@ end
 local function on_attach(client, bufnr)
 	load_mappings({ buffer = bufnr })
 end
+
+-- FIX: python lsp not using default callback
+vim.api.nvim_create_autocmd("LspAttach", {
+	pattern = "*.py",
+	callback = function(args)
+		load_mappings({ buffer = args.buf })
+	end,
+})
 
 return {
 	"neovim/nvim-lspconfig",

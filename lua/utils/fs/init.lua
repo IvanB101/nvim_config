@@ -1,4 +1,5 @@
 local str = require("utils.string")
+local iter = require("utils.iter")
 local clipboard = ""
 local to_move = false
 
@@ -174,7 +175,9 @@ end
 ---@return string
 local function get_selected_files()
 	vim.cmd("normal! y")
-	return str.line_preppend(vim.fn.getreg('"'), cwd())
+	return str.map_lines(vim.fn.getreg('"'), function(line)
+		return cwd() .. line
+	end)
 end
 
 ---@return string

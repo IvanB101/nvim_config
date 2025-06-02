@@ -23,17 +23,7 @@ remap("n", "y", function()
 	fs.copy(fs.get_marked_files())
 end, { desc = "copy marked files", buffer = true })
 remap("n", "d", function()
-	local files = fs.get_marked_files()
-	if files == "" then
-		local dir_name = vim.fn.input("Please give directory name: ")
-		if dir_name == "" then
-			return
-		end
-		vim.system({ "mkdir", dir_name })
-		vim.cmd("Ex")
-	else
-		fs.move(files)
-	end
+	fs.move(fs.get_marked_files())
 end, { desc = "move marked files", buffer = true })
 remap("n", "D", function()
 	local files = fs.get_marked_files()

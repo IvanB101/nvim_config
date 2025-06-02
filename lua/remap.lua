@@ -61,7 +61,7 @@ remap("n", "<C-n>", "<cmd>tab split<cr>", { desc = "new tab" })
 remap("n", "Q", "<cmd>tabclose<cr>", { desc = "close tab" })
 
 remap("n", "<leader>tc", function()
-	utils.editor.replace_word_under_cursor(utils.general.toggle_case)
+	utils.editor.replace_word_under_cursor(utils.string.toggle_case)
 end, { desc = "toggle case of word under cursor" })
 
 remap("i", "<A-j>", "<down>", { desc = "down in insert mode" })

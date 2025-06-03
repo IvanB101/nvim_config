@@ -1,11 +1,6 @@
 local linters_by_ft = {
-	-- markdown = { "vale" },
+	-- typescript = { "eslint_d" },
 }
-local pattern = {}
-local core = require("core")
-for ft in pairs(linters_by_ft) do
-	pattern[#pattern + 1] = core.get_pattern(ft)
-end
 
 return {
 	"mfussenegger/nvim-lint",
@@ -13,10 +8,17 @@ return {
 		local lint = require("lint")
 		lint.linters_by_ft = linters_by_ft
 
-		vim.api.nvim_create_autocmd("BufWritePost", {
-			pattern = pattern,
-			callback = function()
-				lint.try_lint()
+		vim.api.nvim_create_autocmd("BufReadPost", {
+			callback = function(args)
+				local filetype = vim.bo.filetype
+				if linters_by_ft[filetype] then
+					vim.api.nvim_create_autocmd("BufWritePost", {
+						buffer = args.buf,
+						callback = function()
+							lint.try_lint()
+						end,
+					})
+				end
 			end,
 		})
 	end,

@@ -27,7 +27,33 @@ local function search_root()
 	return dir
 end
 
-local lsp_config = require("plugins.lspconfig").export
+local function load_mappings(opts)
+	local iter = require("utils.iter")
+	local fs = require("utils.fs")
+	---@param classes table<string, boolean>
+	local function get_test_cmd(classes)
+		local args = ""
+		for path, _ in pairs(classes) do
+			local name = path:gsub("^.*/java/", ""):gsub(".java.*$", ""):gsub("/", ".")
+			args = args .. ' -Dtest="' .. name .. '"'
+		end
+		return "mvn test" .. args
+	end
+	local remap = vim.keymap.set
+	local classes = {}
+
+	remap("n", "<leader>Ta", function()
+		classes[fs.cwd()] = true
+	end, { desc = "add class to test" })
+	remap("n", "<leader>Tc", function()
+		classes = {}
+	end, { desc = "clear test classes" })
+	remap("n", "<leader>TT", function()
+		vim.fn.setreg("+", get_test_cmd(classes))
+	end, { desc = "add class to test" })
+end
+
+local lsp_config = require("core.lsp.base")
 local jdtls = require("jdtls")
 
 local function directory_exists(path)
@@ -50,13 +76,13 @@ local bundles = {}
 local mason_path = vim.fn.glob(vim.fn.stdpath("data") .. "/mason/")
 local install_path = mason_path .. "packages/jdtls/"
 vim.list_extend(bundles, vim.split(vim.fn.glob(mason_path .. "packages/java-test/extension/server/*.jar"), "\n"))
--- vim.list_extend(
--- 	bundles,
--- 	vim.split(
--- 		vim.fn.glob(mason_path .. "packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar"),
--- 		"\n"
--- 	)
--- )
+vim.list_extend(
+	bundles,
+	vim.split(
+		vim.fn.glob(mason_path .. "packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar"),
+		"\n"
+	)
+)
 
 local config = {
 	cmd = {
@@ -68,9 +94,9 @@ local config = {
 		"-Dlog.level=ALL",
 		"-javaagent:" .. install_path .. "lombok.jar",
 		"-Xms2g",
-		"-Xmx4g",
-		"-XX:ParallelGCThreads=4",
-		"-XX:ConcGCThreads=2",
+		-- "-Xmx4g",
+		"-XX:ParallelGCThreads=6",
+		"-XX:ConcGCThreads=3",
 		"--module-path",
 		root_dir,
 		"--add-opens",
@@ -131,9 +157,9 @@ local config = {
 	},
 	on_attach = function(client, bufnr)
 		lsp_config.on_attach(client, bufnr)
-		-- local _, _ = pcall(vim.lsp.codelens.refresh)
-		-- require("jdtls.dap").setup_dap_main_class_configs()
-		-- jdtls.setup_dap({ hotcodereplace = "auto" })
+		load_mappings({ buffer = bufnr })
+		require("jdtls.dap").setup_dap_main_class_configs()
+		jdtls.setup_dap({ hotcodereplace = "auto" })
 	end,
 }
 

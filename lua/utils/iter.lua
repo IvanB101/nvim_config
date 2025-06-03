@@ -43,6 +43,17 @@ end
 
 ---@generic T
 ---@param iterable fun() : T?
+---@return table<integer, T>
+iter.collect = function(iterable)
+	local table = {}
+	for elem in iterable do
+		table[#table + 1] = elem
+	end
+	return table
+end
+
+---@generic T
+---@param iterable fun() : T?
 ---@param separator string
 iter.join = function(iterable, separator)
 	local res = tostring(iterable()) or ""

@@ -1,6 +1,7 @@
 local plugins = {
 	{ "lewis6991/gitsigns.nvim" },
 	{ "mfussenegger/nvim-jdtls" },
+	{ "neovim/nvim-lspconfig" },
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -29,13 +30,6 @@ local plugins = {
 		"saecki/crates.nvim",
 		ft = { "rust", "toml" },
 		dependencies = { "hrsh7th/nvim-cmp" },
-		config = true,
-		-- TODO insert crate sources in nvim-cmp
-	},
-	{
-		"jay-babu/mason-nvim-dap.nvim",
-		event = "VeryLazy",
-		dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" },
 		config = true,
 	},
 	{

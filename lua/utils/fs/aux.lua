@@ -56,9 +56,6 @@ local function generate_unique_name(dir, path)
 		local name = vim.fn.fnamemodify(path, ":h:t")
 		local final_name = name
 
-		print("name" .. name)
-		print("final" .. dir .. final_name)
-
 		local repeated = vim.uv.fs_stat(dir .. final_name) ~= nil
 		if repeated then
 			final_name = name .. " copy/"

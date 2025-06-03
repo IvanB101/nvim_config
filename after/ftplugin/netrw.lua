@@ -5,8 +5,11 @@ local bind = function(lhs, rhs, desc)
 	remap("n", lhs, rhs, { buffer = true, desc = desc, remap = true })
 end
 
+vim.opt.relativenumber = true
+
 bind("a", "<nop>", "no showing only hidden files")
 bind("s", "<nop>", "no sort changin")
+bind("i", "<nop>", "single dir buf preferred")
 bind("v", "V", "quality of life")
 
 remap("v", "y", function()

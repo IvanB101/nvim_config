@@ -1,4 +1,4 @@
-local lspconfig = require("plugins.lspconfig").export
+local lspconfig = require("core.lsp.base")
 
 return {
 	filetypes = {

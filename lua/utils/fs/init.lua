@@ -1,5 +1,4 @@
 local str = require("utils.string")
-local iter = require("utils.iter")
 local clipboard = ""
 local to_move = false
 

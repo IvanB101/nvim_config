@@ -17,12 +17,6 @@ local plugins = {
 	},
 	{ "barreiroleo/ltex_extra.nvim" },
 	{
-		"tiagovla/tokyodark.nvim",
-		config = function(_, _)
-			vim.cmd([[colorscheme tokyodark]])
-		end,
-	},
-	{
 		"mrcjkb/rustaceanvim",
 		lazy = false, -- This plugin is already lazy
 	},

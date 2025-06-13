@@ -69,9 +69,12 @@ remap("i", "<A-k>", "<up>", { desc = "up in insert mode" })
 remap("i", "<A-h>", "<left>", { desc = "left in insert mode" })
 remap("i", "<A-l>", "<right>", { desc = "right in insert mode" })
 
-remap("c", "<A-j>", "<left>", { desc = "go left one character" })
-remap("c", "<A-k>", "<right>", { desc = "go right one character" })
-remap("c", "<A-h>", "<s-left>", { desc = "go left one word" })
-remap("c", "<A-l>", "<c-right>", { desc = "go right one word" })
+remap("c", "<A-j>", "<down>", { desc = "go left one character" })
+remap("c", "<A-k>", "<up>", { desc = "go right one character" })
+remap("c", "<A-h>", "<left>", { desc = "go left one word" })
+remap("c", "<A-l>", "<right>", { desc = "go right one word" })
+
+remap("c", "<C-h>", "<s-left>", { desc = "go left one word" })
+remap("c", "<C-l>", "<s-right>", { desc = "go right one word" })
 
 remap("c", "<C-c>", "\\(\\)<left><left>", { desc = "open capture group" })

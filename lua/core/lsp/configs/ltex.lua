@@ -23,7 +23,7 @@ return {
 		ltex = {
 			language = "es",
 			additionalRules = {
-				languageModel = "~/models/ngrams/",
+				languageModel = "~/.models/ngrams/",
 				-- enablePickyRules = true,
 			},
 			disabledRules = {

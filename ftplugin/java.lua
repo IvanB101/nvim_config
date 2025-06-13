@@ -49,6 +49,9 @@ local function load_mappings(opts)
 		classes = {}
 	end, { desc = "clear test classes" })
 	remap("n", "<leader>TT", function()
+		if classes == {} then
+			classes[fs.cwd()] = true
+		end
 		vim.fn.setreg("+", get_test_cmd(classes))
 	end, { desc = "add class to test" })
 end
@@ -150,6 +153,12 @@ local config = {
 			referencesCodeLens = { enabled = false },
 			implementationsCodeLens = { enabled = false },
 			inlayHints = { parameterNames = { enabled = "none" } },
+			format = {
+				settings = {
+					url = vim.fn.glob("~/.config/nvim/lua/core/formatters/configs/jdtls.xml"),
+					profile = "CustomJavaFormat", -- The profile name in the XML
+				},
+			},
 		},
 	},
 	init_options = {

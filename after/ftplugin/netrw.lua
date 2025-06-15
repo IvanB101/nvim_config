@@ -58,6 +58,15 @@ remap("n", "n", function()
 	end
 	fs.create(fs.cwd() .. name)
 end, { desc = "create new file or directory", buffer = true })
+remap("n", "N", function()
+	local name = vim.fn.input("Please enter file (end with '/' for directory) name: ")
+	if name == "" then
+		return
+	end
+	local path = fs.cwd() .. name
+	fs.create(path)
+	vim.cmd("edit " .. path)
+end, { desc = "create new file or directory", buffer = true })
 
 bind("h", "-", "go to parent directory")
 bind("l", "<cr>", "go to directory or open file")

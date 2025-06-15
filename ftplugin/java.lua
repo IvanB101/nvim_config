@@ -27,32 +27,61 @@ local function search_root()
 	return dir
 end
 
+local function get_test_method_name()
+	local parser = vim.treesitter.get_parser(0)
+	if not parser then
+		vim.notify("No treesitter parser found for java", vim.log.levels.ERROR)
+		return nil
+	end
+	local tree = parser:parse()[1]
+	local root = tree:root()
+	local cursor_row, cursor_col = unpack(vim.api.nvim_win_get_cursor(0))
+	local node = root:named_descendant_for_range(cursor_row - 1, cursor_col, cursor_row - 1, cursor_col)
+	if not node then
+		vim.notify("Cursor is not in a valid position", vim.log.levels.ERROR)
+		return nil
+	end
+
+	---@type TSNode?
+	local current = node
+	while current do
+		if current:type() == "method_declaration" then
+			local annotation_text = vim.treesitter.get_node_text(current, 0)
+			if annotation_text:find("@Test") then
+				for child in current:iter_children() do
+					if child:type() == "identifier" then
+						return vim.treesitter.get_node_text(child, 0)
+					end
+				end
+			end
+			break
+		end
+		current = current:parent()
+	end
+	return nil
+end
+
 local function load_mappings(opts)
 	local fs = require("utils.fs")
-	---@param classes table<string, boolean>
-	local function get_test_cmd(classes)
-		local args = ""
-		for path, _ in pairs(classes) do
-			local name = path:gsub("^.*/java/", ""):gsub(".java.*$", ""):gsub("/", ".")
-			args = args .. ' -Dtest="' .. name .. '"'
-		end
-		return "mvn test" .. args
-	end
 	local remap = vim.keymap.set
-	local classes = {}
 
-	remap("n", "<leader>Ta", function()
-		classes[fs.cwd()] = true
-	end, { desc = "add class to test" })
-	remap("n", "<leader>Tc", function()
-		classes = {}
-	end, { desc = "clear test classes" })
-	remap("n", "<leader>TT", function()
-		if classes == {} then
-			classes[fs.cwd()] = true
+	remap("n", "<leader>tf", function()
+		local arg = ' -Dtest="' .. fs.cwd():gsub("^.*/java/", ""):gsub(".java.*$", ""):gsub("/", ".") .. '"'
+		vim.cmd("1TermExec cmd='mvn test" .. arg .. "'")
+	end, vim.tbl_extend("force", opts, { desc = "test current file" }))
+	remap("n", "<leader>T", function()
+		local method = get_test_method_name()
+		if method == nil then
+			return
 		end
-		vim.fn.setreg("+", get_test_cmd(classes))
-	end, { desc = "add class to test" })
+		local arg = ' -Dtest=\\"'
+			.. fs.cwd():gsub("^.*/java/", ""):gsub(".java.*$", ""):gsub("/", ".")
+			.. "\\#"
+			.. method
+			.. '\\"'
+		print("1TermExec cmd='mvn test" .. arg .. "'")
+		vim.cmd("1TermExec cmd='mvn test" .. arg .. "'")
+	end, vim.tbl_extend("force", opts, { desc = "test current method" }))
 end
 
 local lsp_config = require("core.lsp.base")

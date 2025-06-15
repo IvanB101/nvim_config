@@ -28,7 +28,6 @@ local function search_root()
 end
 
 local function load_mappings(opts)
-	local iter = require("utils.iter")
 	local fs = require("utils.fs")
 	---@param classes table<string, boolean>
 	local function get_test_cmd(classes)

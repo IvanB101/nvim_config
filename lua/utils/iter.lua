@@ -1,66 +1,104 @@
-local iter = {}
+---@generic T
+---@class Iterator<T>
+---@field _f fun(): ...
+local iter_mt = {}
 
 ---@generic T, R
----@param iterable fun() : T?
----@param mapper fun(T) : R
-iter.map = function(iterable, mapper)
-	return function()
-		local val = iterable()
-		return val ~= nil and mapper(val) or nil
+---@param mapper fun(...) : ...
+---@return Iterator<R>
+function iter_mt:map(mapper)
+	local fn = self._f
+	self._f = function()
+		return (function(...)
+			local var = ...
+			if var == nil then
+				return nil
+			end
+			return mapper(...)
+		end)(fn())
 	end
+	return self
 end
 
----@generic T
----@param iterable fun() : T?
----@param filter fun(T) : boolean
-iter.filter = function(iterable, filter)
-	return function()
-		local val = iterable()
-		while val ~= nil and not filter(val) do
-			val = iterable()
+---@generic T, R
+---@param predicate fun(...) : boolean
+---@return Iterator<T>
+function iter_mt:filter(predicate)
+	local fn = self._f
+	self._f = function()
+		local ret = table.pack(fn())
+		while ret[1] ~= nil and not predicate(table.unpack(ret)) do
+			ret = table.pack(fn())
 		end
-		return val
+		return table.unpack(ret)
 	end
+	return self
 end
 
 ---@generic T
----@param iterable fun() : T?
 ---@param n integer
-iter.skip = function(iterable, n)
+---@return Iterator<T>
+function iter_mt:skip(n)
+	local fn = self._f
 	local skipped = false
-	return function()
+	self._f = function()
 		if not skipped then
 			for _ = 1, n do
-				if iterable() == nil then
+				if fn() == nil then
 					return nil
 				end
 			end
 			skipped = true
 		end
-		return iterable()
+		return fn()
 	end
+	return self
 end
 
 ---@generic T
----@param iterable fun() : T?
 ---@return table<integer, T>
-iter.collect = function(iterable)
-	local table = {}
-	for elem in iterable do
-		table[#table + 1] = elem
+function iter_mt:collect()
+	local values = {}
+	local ret = self._f()
+	while ret ~= nil do
+		values[#values + 1] = ret
+		ret = self._f()
 	end
-	return table
+	return values
 end
 
 ---@generic T
----@param iterable fun() : T?
 ---@param separator string
-iter.join = function(iterable, separator)
-	local res = tostring(iterable()) or ""
-	for val in iterable do
-		res = res .. separator .. tostring(val)
-	end
-	return res
+function iter_mt:join(separator)
+	return table.concat(self:collect(), separator)
 end
 
-return iter
+---@generic T
+---@return fun(): T?
+function iter_mt:iter()
+	return self._f
+end
+
+---@generic T, S, R
+---@param _f fun(S, T): R?
+---@param _s S?
+---@param _var T?
+---@return Iterator<T>
+local function wrap(_f, _s, _var)
+	local fn = function()
+		return (function(...)
+			local var = ...
+			_var = var
+			return ...
+		end)(_f(_s, _var))
+	end
+	local wrapper = {
+		_f = fn,
+	}
+	setmetatable(wrapper, { __index = iter_mt })
+	return wrapper
+end
+
+return {
+	wrap = wrap,
+}

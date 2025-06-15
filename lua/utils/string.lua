@@ -38,7 +38,7 @@ end
 ---@param mapper fun(strings): string
 ---@return string - result of mapping each line with mapper
 string.map_lines = function(str, mapper)
-	return iter.join(iter.map(string.lines(str), mapper), "\n")
+	return iter.wrap(string.lines(str)):map(mapper):join("\n")
 end
 
 return string

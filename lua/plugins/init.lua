@@ -17,10 +17,6 @@ local plugins = {
 	},
 	{ "barreiroleo/ltex_extra.nvim" },
 	{
-		"mrcjkb/rustaceanvim",
-		lazy = false, -- This plugin is already lazy
-	},
-	{
 		"saecki/crates.nvim",
 		ft = { "rust", "toml" },
 		dependencies = { "hrsh7th/nvim-cmp" },

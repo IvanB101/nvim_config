@@ -1,7 +1,7 @@
 return {
-	sh = { "beautysh" },
-	zsh = { "beautysh" },
+	javascript = { "prettierd" },
 	lua = { "stylua" },
 	python = { "black" },
-	javascript = { "prettierd" },
+	sh = { "beautysh" },
+	zsh = { "beautysh" },
 }

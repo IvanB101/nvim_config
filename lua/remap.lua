@@ -9,13 +9,6 @@ remap("n", "<A-h>", "<C-o>", { desc = "jump backwards in jump list" })
 remap({ "n", "v", "o" }, "L", "$", { desc = "go to line end" })
 remap({ "n", "v", "o" }, "H", "^", { desc = "go to line start" })
 
-remap("n", "gn", function()
-	vim.diagnostic.jump({ count = 1 })
-end, { desc = "go to next diagnostic" })
-remap("n", "gN", function()
-	vim.diagnostic.jump({ count = -1 })
-end, { desc = "go to previous diagnostic" })
-
 remap("n", "<tab>", "gt", { desc = "go to next tab" })
 remap("n", "<s-tab>", "gT", { desc = "go to previos tab" })
 
@@ -42,6 +35,7 @@ remap("n", "N", "Nzzzv", { desc = "Centered cursor N" })
 remap({ "n", "v" }, "<leader>y", '"+y', { desc = "yank to clipboard" })
 remap({ "n", "v" }, "<leader>p", '"+p', { desc = "paste from system clipboard" })
 remap({ "n", "v" }, "<leader>P", '"+P', { desc = "paste from system clipboard before cursor" })
+
 remap("v", "r", '"_dP', { desc = "replace marked with clipboard" })
 remap("v", "<leader>r", '"_d"+P', { desc = "replace marked with system clipboard" })
 
@@ -51,6 +45,7 @@ remap("n", "<C-z>", "<nop>", { desc = "nothing" })
 remap("n", "<leader>q", function()
 	utils.quickfix.toggle()
 end, { desc = "toggle quickfix list" })
+
 remap("n", "<leader>lo", function()
 	vim.cmd("e" .. vim.lsp.get_log_path())
 end, { desc = "show error log" })
@@ -63,11 +58,6 @@ remap("n", "Q", "<cmd>tabclose<cr>", { desc = "close tab" })
 remap("n", "<leader>tc", function()
 	utils.editor.replace_word_under_cursor(utils.string.toggle_case)
 end, { desc = "toggle case of word under cursor" })
-
-remap("i", "<A-j>", "<down>", { desc = "down in insert mode" })
-remap("i", "<A-k>", "<up>", { desc = "up in insert mode" })
-remap("i", "<A-h>", "<left>", { desc = "left in insert mode" })
-remap("i", "<A-l>", "<right>", { desc = "right in insert mode" })
 
 remap("c", "<A-j>", "<down>", { desc = "go left one character" })
 remap("c", "<A-k>", "<up>", { desc = "go right one character" })

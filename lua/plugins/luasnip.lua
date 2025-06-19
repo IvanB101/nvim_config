@@ -21,5 +21,6 @@ return {
 		local ls = require("luasnip")
 		ls.setup(opts)
 		loadSnippets()
+		remap("n", "<leader>L", loadSnippets, { desc = "reload snippets" })
 	end,
 }

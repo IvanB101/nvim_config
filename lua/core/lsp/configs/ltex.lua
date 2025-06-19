@@ -27,11 +27,7 @@ return {
 				-- enablePickyRules = true,
 			},
 			disabledRules = {
-				["es"] = {
-					"MORFOLOGIK_RULE_ES",
-					"\\\\\\\\cite{.*}",
-					"\\\\\\\\acr\\\\w*{.*}",
-				},
+				["es"] = { "MORFOLOGIK_RULE_ES" },
 				["en"] = { "MORFOLOGIK_RULE_EN" },
 			},
 		},
@@ -39,6 +35,7 @@ return {
 	on_attach = function(client, bufnr)
 		lspconfig.on_attach(client, bufnr)
 		require("ltex_extra").setup({
+			load_langs = { "es", "en" },
 			path = "./.ltex/",
 		})
 	end,

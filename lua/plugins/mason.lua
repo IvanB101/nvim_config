@@ -15,8 +15,8 @@ local opts = {
 		"ltex-ls",
 		"mypy",
 		"pyright",
-		"sqlls",
 		"stylua",
+		"texlab",
 		"zls",
 	},
 }

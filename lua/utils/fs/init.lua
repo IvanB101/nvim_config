@@ -168,7 +168,7 @@ end
 --- opens path with OS default application for filetype
 ---@param path string
 local function open(path)
-	vim.cmd("!open " .. '"' .. path .. '"')
+	vim.cmd("!open " .. '"' .. path:gsub("%*$", "") .. '"')
 end
 
 ---@return string

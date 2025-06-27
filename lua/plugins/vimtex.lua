@@ -9,7 +9,6 @@ vim.keymap.set("n", "<leader>lc", vim.cmd.VimtexCompile, { desc = "vimtex compil
 vim.g.vimtex_compiler_engine = "lualatex"
 
 vim.g.vimtex_compiler_latexmk = {
-	out_dir = "build",
 	options = {
 		"-shell-escape",
 		"-verbose",

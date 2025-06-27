@@ -4,6 +4,7 @@ local mason_map = require("mason-lspconfig.mappings").get_mason_map()
 
 local exclude = {
 	"jdtls",
+	"tailwindcss-language-server",
 }
 
 for _, package in ipairs(registry.get_installed_packages()) do
@@ -27,3 +28,16 @@ for _, package in ipairs(registry.get_installed_packages()) do
 	end
 	::continue::
 end
+
+-- local lspconfig = require("lspconfig")
+--
+-- mason_registry:on("package:install:success", function(pkg)
+--   local name = pkg.name
+--
+--   if name == "tsserver" then
+--     require("lspconfig").tsserver.setup {
+--       -- custom setup here
+--     }
+--     print("tsserver has been installed and configured.")
+--   end
+-- end)

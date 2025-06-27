@@ -5,6 +5,7 @@ remap("n", "<leader>ff", builtin.find_files, { desc = "find files" })
 remap("n", "<leader>fp", function()
 	builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end, { desc = "project grep" })
+remap("n", "<leader>fl", builtin.live_grep, { desc = "project grep" })
 remap("n", "<leader>fg", builtin.git_files, { desc = "find git files" })
 remap("n", "<leader>fr", builtin.lsp_references, { desc = "find git files" })
 remap("n", "<leader>fs", builtin.lsp_workspace_symbols, { desc = "find workspace symbols" })
@@ -14,6 +15,8 @@ remap("n", "<leader>fbd", function()
 	builtin.diagnostics({ bufnr = 0 })
 end, { desc = "telescope buffer diagnostics" })
 remap("n", "<leader>fk", builtin.keymaps, { desc = "key mappings" })
+
+remap("n", "<leader>th", builtin.colorscheme, { desc = "key mappings" })
 
 return {
 	"nvim-telescope/telescope.nvim",

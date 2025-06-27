@@ -6,8 +6,8 @@ remap("n", "<leader>e", vim.cmd.Ex, { desc = "open netrw" })
 remap("n", "<A-l>", "<tab>", { desc = "jump forwards in jump list" })
 remap("n", "<A-h>", "<C-o>", { desc = "jump backwards in jump list" })
 
-remap({ "n", "v", "o" }, "L", "$", { desc = "go to line end" })
-remap({ "n", "v", "o" }, "H", "^", { desc = "go to line start" })
+remap({ "n", "v", "o" }, "L", "$", { desc = "go to line end", remap = true })
+remap({ "n", "v", "o" }, "H", "^", { desc = "go to line start", remap = true })
 
 remap("n", "<tab>", "gt", { desc = "go to next tab" })
 remap("n", "<s-tab>", "gT", { desc = "go to previos tab" })

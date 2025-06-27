@@ -26,15 +26,10 @@ capabilities.textDocument.completion.completionItem = {
 local formatters = require("core.formatters")
 local function load_mappings(opts)
 	local ft = vim.bo[opts.buffer].filetype
-	local format
-	if formatters[ft] then
-		format = function()
-			require("conform").format({ async = true })
-		end
-	else
-		format = function()
-			vim.lsp.buf.format({ async = true })
-		end
+	local format = formatters[ft] and function()
+		require("conform").format({ async = true })
+	end or function()
+		vim.lsp.buf.format({ async = true })
 	end
 
 	remap({ "n", "x" }, "<leader>fm", format, opts)

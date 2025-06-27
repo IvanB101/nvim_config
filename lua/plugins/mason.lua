@@ -5,6 +5,7 @@ local opts = {
 		"bash-language-server",
 		"clangd",
 		"codelldb",
+		"css-lsp",
 		"glsl_analyzer",
 		"html-lsp",
 		"java-debug-adapter",
@@ -16,7 +17,9 @@ local opts = {
 		"mypy",
 		"pyright",
 		"stylua",
+		"tailwindcss-language-server",
 		"texlab",
+		"wgsl-analyzer",
 		"zls",
 	},
 }

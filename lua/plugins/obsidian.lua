@@ -33,5 +33,8 @@ return {
 		follow_url_func = function(url)
 			vim.ui.open(url)
 		end,
+		note_id_func = function(title)
+			return title
+		end,
 	},
 }

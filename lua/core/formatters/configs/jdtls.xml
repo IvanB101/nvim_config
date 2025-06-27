@@ -2,8 +2,24 @@
 <profiles version="12">
     <profile kind="CodeFormatterProfile" name="CustomJavaFormat" version="12">
         <setting id="org.eclipse.jdt.core.formatter.lineSplit" value="80" />
+
         <setting id="org.eclipse.jdt.core.formatter.tabulation.char" value="space" />
-        <setting id="org.eclipse.jdt.core.formatter.tabulation.size" value="4" />
-        <!-- Add more formatter settings as needed -->
+        <setting id="org.eclipse.jdt.core.formatter.tabulation.size" value="2" />
+
+        <setting id="org.eclipse.jdt.core.formatter.insert_new_line_after_annotation_on_field"
+            value="insert" />
+        <setting id="org.eclipse.jdt.core.formatter.insert_new_line_after_annotation_on_method"
+            value="insert" />
+        <setting id="org.eclipse.jdt.core.formatter.insert_new_line_after_annotation_on_type"
+            value="insert" />
+        <setting
+            id="org.eclipse.jdt.core.formatter.insert_new_line_after_annotation_on_local_variable"
+            value="insert" />
+
+        <setting id="org.eclipse.jdt.core.formatter.alignment_for_parameters_in_method_declaration"
+            value="48" />
+        <setting
+            id="org.eclipse.jdt.core.formatter.alignment_for_parameters_in_constructor_declaration"
+            value="48" />
     </profile>
 </profiles>

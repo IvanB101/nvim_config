@@ -1,9 +1,6 @@
 local function search_root()
 	local function is_pom_with_modules(path)
-		local f = io.open(path, "r")
-		if not f then
-			return false
-		end
+		local f = io.open(path, "r") or error("no such directory " .. path)
 		local content = f:read("*all")
 		f:close()
 		return content:find("<modules>")
@@ -18,9 +15,8 @@ local function search_root()
 			return dir
 		end
 		local parent = vim.uv.fs_realpath(dir .. "/..") or error("Project root not found")
-		local parent_pom = parent .. "/pom.xml"
 		last_dir = dir
-		if vim.fn.filereadable(parent_pom) == 1 then
+		if vim.fn.filereadable(parent .. "/pom.xml") == 1 then
 			dir = parent
 		end
 	end
@@ -79,7 +75,6 @@ local function load_mappings(opts)
 			.. "\\#"
 			.. method
 			.. '\\"'
-		print("1TermExec cmd='mvn test" .. arg .. "'")
 		vim.cmd("1TermExec cmd='mvn test" .. arg .. "'")
 	end, vim.tbl_extend("force", opts, { desc = "test current method" }))
 end
@@ -150,14 +145,11 @@ local config = {
 				enabled = true,
 			},
 			saveActions = {
-				organizeImports = true,
+				organizeImports = false,
 			},
 			completion = {
 				maxResults = 20,
 				favoriteStaticMembers = {
-					"org.hamcrest.MatcherAssert.assertThat",
-					"org.hamcrest.Matchers.*",
-					"org.hamcrest.CoreMatchers.*",
 					"org.junit.jupiter.api.Assertions.*",
 					"java.util.Objects.requireNonNull",
 					"java.util.Objects.requireNonNullElse",

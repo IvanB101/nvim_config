@@ -12,7 +12,10 @@ local letters = {
 	I = "Í",
 	O = "Ó",
 	U = "Ú",
+
 	N = "Ñ",
+
+	d = "°",
 }
 
 for key, letter in pairs(letters) do

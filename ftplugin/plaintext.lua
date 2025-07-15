@@ -7,5 +7,3 @@ remap({ "n", "v" }, "j", "gj", { desc = "navigate down in visual lines", remap =
 remap({ "n", "v" }, "k", "gk", { desc = "navigate up in visual lines", remap = true, buffer = true })
 remap({ "n", "v" }, "$", "g$", { desc = "navigate to end of visual line", remap = true, buffer = true })
 remap({ "n", "v" }, "^", "g^", { desc = "navigate to start of visual line", remap = true, buffer = true })
-
-remap("n", "dd", "g0vg$d", { desc = "delete visual line", buffer = true })

@@ -6,7 +6,7 @@ vim.g.vimtex_view_general_viewer = "okular"
 vim.keymap.set("n", "<leader>lv", vim.cmd.VimtexView, { desc = "vimtex view" })
 vim.keymap.set("n", "<leader>lc", vim.cmd.VimtexCompile, { desc = "vimtex compile" })
 
-vim.g.vimtex_compiler_engine = "lualatex"
+vim.g.vimtex_compiler_engine = "xelatex"
 
 vim.g.vimtex_compiler_latexmk = {
 	options = {

@@ -62,7 +62,7 @@ local function load_mappings(opts)
 	local remap = vim.keymap.set
 
 	remap("n", "<leader>tf", function()
-		local arg = ' -Dtest="' .. fs.cwd():gsub("^.*/java/", ""):gsub(".java.*$", ""):gsub("/", ".") .. '"'
+		local arg = ' -Dtest="' .. fs.cwf():gsub("^.*/java/", ""):gsub(".java.*$", ""):gsub("/", ".") .. '"'
 		vim.cmd("1TermExec cmd='mvn test" .. arg .. "'")
 	end, vim.tbl_extend("force", opts, { desc = "test current file" }))
 	remap("n", "<leader>T", function()
@@ -71,7 +71,7 @@ local function load_mappings(opts)
 			return
 		end
 		local arg = ' -Dtest=\\"'
-			.. fs.cwd():gsub("^.*/java/", ""):gsub(".java.*$", ""):gsub("/", ".")
+			.. fs.cwf():gsub("^.*/java/", ""):gsub(".java.*$", ""):gsub("/", ".")
 			.. "\\#"
 			.. method
 			.. '\\"'
@@ -88,6 +88,7 @@ local function directory_exists(path)
 end
 
 local root_dir = search_root()
+require("core.state").update({ root_dir = root_dir })
 
 -- calculate workspace dir
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")

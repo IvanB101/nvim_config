@@ -20,6 +20,9 @@ remap("n", "<leader>rp", ":%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>", {
 remap("v", "<leader>rp", 'y:%s/<C-r>"/<C-r>"/gI<Left><Left><Left>', {
 	desc = "replace all ocurrencies",
 })
+remap("n", "<leader>sr", "y/<C-r><C-w><cr>", {
+	desc = "search ocurrencies of marked text ",
+})
 remap("v", "<leader>sr", 'y/<C-r>"<cr>', {
 	desc = "search ocurrencies of marked text ",
 })
@@ -45,6 +48,8 @@ remap("n", "<C-z>", "<nop>", { desc = "nothing" })
 remap("n", "<leader>q", function()
 	utils.quickfix.toggle()
 end, { desc = "toggle quickfix list" })
+remap("n", "]q", "<cmd>cnext<cr>", { desc = "go to next entry in quickfix list" })
+remap("n", "[q", "<cmd>cprev<cr>", { desc = "go to previous entry in quickfix list" })
 
 remap("n", "<leader>lo", function()
 	vim.cmd("e" .. vim.lsp.get_log_path())

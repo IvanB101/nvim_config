@@ -136,16 +136,33 @@ local function delete(files, opts)
 	refresh()
 end
 
----return the directory currently displayed in netrw or the parent directory if viewing a file
+---return the currect working file, if editing one, or directory, if in netrw buffer
+---@return string
+local function cwf()
+	local file = vim.fn.expand("%")
+	local is_absolute = file:sub(1, 1) == "/"
+
+	if not is_absolute then
+		local root = vim.fn.getcwd()
+		file = root .. (file and "/" .. file or "")
+	end
+	if vim.uv.fs_stat(file).type == "directory" then
+		file = file .. "/"
+	end
+
+	return file
+end
+
+---return the current working directory
 ---@return string
 local function cwd()
-	local dir = vim.fn.expand("%")
-	if dir:sub(1, 1) == "/" then
-		return dir .. "/"
+	local dir = cwf()
+
+	if not dir:match("/$") then
+		dir = vim.fn.fnamemodify(dir, ":h") .. "/"
 	end
-	dir = dir ~= "" and dir .. "/" or ""
-	local root = vim.fn.getcwd() .. "/"
-	return root .. dir
+
+	return dir
 end
 
 --- creates file, or directory if path ends with /
@@ -175,7 +192,7 @@ end
 local function get_selected_files()
 	vim.cmd("normal! y")
 	return str.map_lines(vim.fn.getreg('"'), function(line)
-		return cwd() .. line
+		return cwf() .. line
 	end)
 end
 
@@ -197,6 +214,7 @@ return {
 	create = create,
 	open = open,
 	cwd = cwd,
+	cwf = cwf,
 	Clipboard = Clipboard,
 	get_selected_files = get_selected_files,
 	get_marked_files = get_marked_files,

@@ -1,22 +1,24 @@
+local remap = vim.keymap.set
+
 return {
 	"nvim-pack/nvim-spectre",
 	config = function()
 		local spectre = require("spectre")
 
-		vim.keymap.set("n", "<leader>S", spectre.toggle, { desc = "toggle Spectre" })
+		remap("n", "<leader>S", spectre.toggle, { desc = "toggle Spectre" })
 
-		vim.keymap.set("n", "<leader>sp", function()
+		remap("n", "<leader>sp", function()
 			spectre.open_visual({ select_word = true })
 		end, { desc = "search word under cursor in project" })
-		vim.keymap.set("v", "<leader>sp", function()
+		remap("v", "<leader>sp", function()
 			vim.cmd("normal y")
 			spectre.open({ search_text = vim.fn.getreg('"') })
 		end, { desc = "search marked text cursor in project" })
 
-		vim.keymap.set("n", "<leader>sl", function()
+		remap("n", "<leader>sl", function()
 			spectre.open_file_search({ select_word = true })
 		end, { desc = "search currect word in file" })
-		vim.keymap.set("v", "<leader>sl", function()
+		remap("v", "<leader>sl", function()
 			vim.cmd("normal y")
 			local opts = { search_text = vim.fn.getreg('"') }
 			opts.path = vim.fn.fnameescape(vim.fn.expand("%:p:."))

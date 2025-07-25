@@ -10,7 +10,7 @@ vim.opt.relativenumber = true
 bind("a", "<nop>", "no showing only hidden files")
 bind("s", "<nop>", "no sort changin")
 bind("i", "<nop>", "single dir buf preferred")
-bind("v", "V", "quality of life")
+bind("o", "<nop>", "why would I open somethin in a horizontal split")
 
 remap("v", "y", function()
 	fs.copy(fs.get_selected_files())
@@ -44,8 +44,7 @@ bind("<leader>p", function()
 	fs.paste(fs.cwd(), { clipboard = fs.Clipboard.SYSTEM })
 end, "paste selected files")
 
-bind("O", "t", "open in file new tab")
-bind("o", function()
+bind("O", function()
 	local file = vim.fn.getline(".")
 	fs.open(fs.cwd() .. file)
 end, "open file under cursor")
@@ -71,7 +70,7 @@ end, { desc = "create new file or directory", buffer = true })
 bind("h", "-", "go to parent directory")
 bind("l", "<cr>", "go to directory or open file")
 
-bind("<f1>", "<cmd>tab help netrw<cr>", "go to directory or open file")
+bind("<f1>", "<cmd>tab help netrw<cr>", "netrw help")
 
 bind("u", "mF", "unmark all files in current dir")
 bind("U", "mu", "unmark all files")

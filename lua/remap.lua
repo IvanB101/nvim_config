@@ -27,8 +27,8 @@ remap("v", "<leader>sr", 'y/<C-r>"<cr>', {
 	desc = "search ocurrencies of marked text ",
 })
 
-remap("v", "K", ":m '>+1<CR>gv=gv", { desc = "move marked text up" })
-remap("v", "J", ":m '<-2<CR>gv=gv", { desc = "move marked text down" })
+remap("v", "J", ":m '>+1<CR>gv=gv", { desc = "move marked text down" })
+remap("v", "K", ":m '<-2<CR>gv=gv", { desc = "move marked text up" })
 remap("n", "J", "mzJ`z", { desc = "J maintains cursor position" })
 remap("n", "<C-d>", "<C-d>zz", { desc = "centeres <C-d>" })
 remap("n", "<C-u>", "<C-u>zz", { desc = "centeres <C-u>" })

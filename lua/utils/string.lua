@@ -1,14 +1,14 @@
 local iter = require("utils.iter")
-local string = {}
+local M = {}
 
 ---@param str string
-string.lines = function(str)
+M.lines = function(str)
 	return str:gmatch("([^\n]+)")
 end
 
 --- Converts a string from title or pascal case to snake case
 --- @param str string
-string.snake_case = function(str)
+M.snake_case = function(str)
 	local res = str:sub(2):gsub("%u", function(letter)
 		return "_" .. letter:lower()
 	end)
@@ -17,7 +17,7 @@ end
 
 --- Converts a string from title or pascal case to snake case
 --- @param str string
-string.pascal_case = function(str)
+M.pascal_case = function(str)
 	local res = str:sub(2):gsub("_%l", function(letter)
 		return letter:sub(2, 2):upper()
 	end)
@@ -26,19 +26,19 @@ end
 
 --- Turns snake into pascal case and pascal and title case into snake case
 --- @param str string
-string.toggle_case = function(str)
+M.toggle_case = function(str)
 	if str:find("%u") then
-		return string.snake_case(str)
+		return M.snake_case(str)
 	else
-		return string.pascal_case(str)
+		return M.pascal_case(str)
 	end
 end
 
 ---@param str string
 ---@param mapper fun(strings): string
 ---@return string - result of mapping each line with mapper
-string.map_lines = function(str, mapper)
-	return iter.wrap(string.lines(str)):map(mapper):join("\n")
+M.map_lines = function(str, mapper)
+	return iter.wrap(M.lines(str)):map(mapper):join("\n")
 end
 
-return string
+return M

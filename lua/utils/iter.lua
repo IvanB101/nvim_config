@@ -1,3 +1,5 @@
+local M = {}
+
 ---@generic T
 ---@class Iterator<T>
 ---@field _f fun(): ...
@@ -84,7 +86,7 @@ end
 ---@param _s S?
 ---@param _var T?
 ---@return Iterator<T>
-local function wrap(_f, _s, _var)
+M.wrap = function(_f, _s, _var)
 	local fn = function()
 		return (function(...)
 			local var = ...
@@ -99,6 +101,4 @@ local function wrap(_f, _s, _var)
 	return wrapper
 end
 
-return {
-	wrap = wrap,
-}
+return M

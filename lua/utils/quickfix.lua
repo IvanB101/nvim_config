@@ -1,4 +1,6 @@
-local toggle = function()
+local M = {}
+
+M.toggle = function()
 	local qf_exists = false
 	for _, win in pairs(vim.fn.getwininfo()) do
 		if win["quickfix"] == 1 then
@@ -14,8 +16,4 @@ local toggle = function()
 	end
 end
 
-local utils = {
-	toggle = toggle,
-}
-
-return utils
+return M

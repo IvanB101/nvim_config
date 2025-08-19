@@ -1,5 +1,7 @@
 local str = require("utils.string")
 
+local M = {}
+
 -- src dir/
 -- dst dir/inner/
 -- file /some/path/inner
@@ -9,7 +11,7 @@ local str = require("utils.string")
 ---@param dst string
 ---@param files string
 ---@return string?
-local function check_circular_reference(dst, files)
+M.check_circular_reference = function(dst, files)
 	for file in str.lines(files) do
 		if vim.uv.fs_stat(file).type == "directory" and dst:find(file) then
 			return file
@@ -25,7 +27,7 @@ end
 ---@param dst string
 ---@param files string
 ---@return Item?
-local function check_name_colisions(dst, files)
+M.check_name_colisions = function(dst, files)
 	dst = dst:gsub("/$", "")
 	local in_dst = {}
 	for name, type in vim.fs.dir(dst) do
@@ -48,7 +50,7 @@ end
 ---@param dir string
 ---@param path string
 ---@return string
-local function generate_unique_name(dir, path)
+M.generate_unique_name = function(dir, path)
 	local stat = vim.uv.fs_stat(path) or error("no such file or directory: " .. path, vim.log.levels.ERROR)
 	local is_dir = stat.type == "directory"
 
@@ -86,8 +88,4 @@ local function generate_unique_name(dir, path)
 	end
 end
 
-return {
-	generate_unique_name = generate_unique_name,
-	check_circular_reference = check_circular_reference,
-	check_name_colisions = check_name_colisions,
-}
+return M

@@ -3,11 +3,10 @@ local clipboard = ""
 local to_move = false
 
 local aux = require("utils.fs.aux")
-local generate_unique_name = aux.generate_unique_name
-local check_name_colisions = aux.check_name_colisions
-local check_circular_reference = aux.check_circular_reference
 
-local function refresh()
+local M = {}
+
+M.refresh = function()
 	vim.cmd("Ex")
 end
 
@@ -25,7 +24,7 @@ local Clipboard = {
 
 ---@param opts ?Opts
 ---@param files string
-local function copy(files, opts)
+M.copy = function(files, opts)
 	opts = opts or { clipboard = Clipboard.LOCAL }
 	if opts.clipboard == Clipboard.LOCAL then
 		clipboard = files
@@ -37,14 +36,14 @@ local function copy(files, opts)
 end
 
 ---@param files string
-local function move(files)
+M.move = function(files)
 	clipboard = files
 	to_move = true
 end
 
 ---@param opts? Opts
 ---@param dst string
-local function paste(dst, opts)
+M.paste = function(dst, opts)
 	opts = opts or { clipboard = Clipboard.LOCAL }
 	local clip = clipboard
 	if opts.clipboard == Clipboard.SYSTEM then
@@ -59,7 +58,7 @@ local function paste(dst, opts)
 		end
 	end
 
-	local circular = check_circular_reference(dst, clip)
+	local circular = aux.check_circular_reference(dst, clip)
 	if circular then
 		local action = to_move and "move" or "copy"
 		vim.notify(
@@ -70,7 +69,7 @@ local function paste(dst, opts)
 	end
 
 	if to_move then
-		local collision = check_name_colisions(dst, clip)
+		local collision = aux.check_name_colisions(dst, clip)
 		if collision then
 			vim.notify("Dst already has a " .. collision.type .. " named " .. collision.name)
 			return
@@ -90,7 +89,7 @@ local function paste(dst, opts)
 	end
 
 	for path in str.lines(clip) do
-		local final_name = generate_unique_name(dst, path)
+		local final_name = aux.generate_unique_name(dst, path)
 		if vim.uv.fs_stat(path).type == "directory" then
 			vim.uv.fs_mkdir(dst .. final_name, 493) -- rwxr-xr-x
 			path = path:gsub(" ", "\\ ")
@@ -102,7 +101,7 @@ local function paste(dst, opts)
 	end
 
 	::after_paste::
-	refresh()
+	M.refresh()
 end
 
 ---@class delete.Opts
@@ -110,7 +109,7 @@ end
 
 ---@param files string
 ---@param opts? delete.Opts
-local function delete(files, opts)
+M.delete = function(files, opts)
 	opts = opts or { with_confirmation = true }
 	local n_files = 0
 	for _ in str.lines(files) do
@@ -133,12 +132,12 @@ local function delete(files, opts)
 	for file in str.lines(files) do
 		vim.fn.delete(file:gsub("*$", ""), "rf")
 	end
-	refresh()
+	M.refresh()
 end
 
 ---return the currect working file, if editing one, or directory, if in netrw buffer
 ---@return string
-local function cwf()
+M.cwf = function()
 	local file = vim.fn.expand("%")
 	local is_absolute = file:sub(1, 1) == "/"
 
@@ -155,8 +154,8 @@ end
 
 ---return the current working directory
 ---@return string
-local function cwd()
-	local dir = cwf()
+M.cwd = function()
+	local dir = M.cwf()
 
 	if not dir:match("/$") then
 		dir = vim.fn.fnamemodify(dir, ":h") .. "/"
@@ -167,7 +166,7 @@ end
 
 --- creates file, or directory if path ends with /
 ---@param path string
-local function create(path)
+M.create = function(path)
 	local is_dir = path:find("/$")
 	if vim.uv.fs_stat(path) then
 		local type = is_dir and "directory" or "file"
@@ -179,25 +178,25 @@ local function create(path)
 	else
 		vim.system({ "touch", path })
 	end
-	refresh()
+	M.refresh()
 end
 
 --- opens path with OS default application for filetype
 ---@param path string
-local function open(path)
+M.open = function(path)
 	vim.cmd("!open " .. '"' .. path:gsub("%*$", "") .. '"')
 end
 
 ---@return string
-local function get_selected_files()
+M.get_selected_files = function()
 	vim.cmd("normal! y")
 	return str.map_lines(vim.fn.getreg('"'), function(line)
-		return cwf() .. line
+		return M.cwf() .. line
 	end)
 end
 
 ---@return string
-local function get_marked_files()
+M.get_marked_files = function()
 	local files = vim.fn["netrw#Expose"]("netrwmarkfilelist")
 	if files == "n/a" then
 		return ""
@@ -206,16 +205,4 @@ local function get_marked_files()
 	return table.concat(files, "\n")
 end
 
-return {
-	copy = copy,
-	move = move,
-	paste = paste,
-	delete = delete,
-	create = create,
-	open = open,
-	cwd = cwd,
-	cwf = cwf,
-	Clipboard = Clipboard,
-	get_selected_files = get_selected_files,
-	get_marked_files = get_marked_files,
-}
+return M

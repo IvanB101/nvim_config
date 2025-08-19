@@ -11,6 +11,7 @@ bind("a", "<nop>", "no showing only hidden files")
 bind("s", "<nop>", "no sort changin")
 bind("i", "<nop>", "single dir buf preferred")
 bind("o", "<nop>", "why would I open somethin in a horizontal split")
+remap("n", "v", "v", { buffer = true, remap = false, desc = "idem o (but for vertical split)" })
 
 remap("v", "y", function()
 	fs.copy(fs.get_selected_files())
@@ -50,14 +51,14 @@ bind("O", function()
 end, "open file under cursor")
 
 bind("r", "R", "rename")
-remap("n", "n", function()
+remap("n", "a", function()
 	local name = vim.fn.input("Please enter file (end with '/' for directory) name: ")
 	if name == "" then
 		return
 	end
 	fs.create(fs.cwd() .. name)
 end, { desc = "create new file or directory", buffer = true })
-remap("n", "N", function()
+remap("n", "A", function()
 	local name = vim.fn.input("Please enter file (end with '/' for directory) name: ")
 	if name == "" then
 		return

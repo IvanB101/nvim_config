@@ -60,6 +60,8 @@ remap("n", "<leader>vs", "<cmd>vsplit<cr>", { desc = "split window (vertical)" }
 remap("n", "<C-n>", "<cmd>tab split<cr>", { desc = "new tab" })
 remap("n", "Q", "<cmd>tabclose<cr>", { desc = "close tab" })
 
+remap({ "n", "v" }, "<leader>w", "g<C-g>", { desc = "count words" })
+
 remap("n", "<leader>tc", function()
 	utils.editor.replace_word_under_cursor(utils.string.toggle_case)
 end, { desc = "toggle case of word under cursor" })

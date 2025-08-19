@@ -43,6 +43,13 @@ local function config()
 		},
 		server = {
 			on_attach = on_attach,
+			procMacro = {
+				ignored = {
+					leptos_macro = {
+						"server",
+					},
+				},
+			},
 		},
 	}
 

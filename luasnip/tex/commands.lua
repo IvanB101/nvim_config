@@ -1,8 +1,10 @@
 local get_visual = require("utils.snippets").get_visual
 
 local snippets = {
-	s({ trig = "image" }, fmta([[\includegraphics{<>}]], { i(1) })),
+	s({ trig = "image" }, fmta([[\includegraphics[width=<>]{<>}]], { i(1, "\\textwidth"), i(2) })),
 	s({ trig = "link", dscr = "link (hyperref)" }, fmta([[\href{<>}{<>}]], { i(2, "url"), d(1, get_visual) })),
+	s({ trig = "inmint", dscr = "inline minted" }, fmta([[\mintinline{<>}{<>}]], { i(1), i(2) })),
+	s({ trig = "disable" }, t("[disable]")),
 }
 
 -- TODO: make snippets based on alias and number of args
@@ -11,7 +13,15 @@ local aliases = {
 	{ "as", "acrshort" },
 	{ "al", "acrlong" },
 	{ "af", "acrfull" },
+	{ "asp", "acrshortpl" },
+	{ "alp", "acrlongpl" },
+	{ "afp", "acrfullpl" },
+
 	{ "cr", "cref" },
+	{ "Cr", "Cref" },
+
+	{ "sc", "scode" },
+
 	{ "sec", "section" },
 	{ "ssec", "subsection" },
 	{ "sssec", "subsubsection" },

@@ -15,7 +15,7 @@ local letters = {
 
 	N = "Ñ",
 
-	d = "°",
+	du = "ü",
 }
 
 for key, letter in pairs(letters) do

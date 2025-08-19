@@ -46,11 +46,24 @@ local snippets = {
 			{ i(0), i(1, "source") }
 		)
 	),
+	s(
+		{ trig = "block", desc = "beamer block" },
+		fmta(
+			[[
+                \begin{block}{<>}
+                    <>
+                \end{block}
+            ]],
+			{ i(1), i(0) }
+		)
+	),
 }
 
 local simple_envs = {
 	"center",
+	"comment",
 	"figure",
+	"frame",
 	"listing",
 	"table",
 }

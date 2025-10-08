@@ -20,7 +20,10 @@ local function load_mappings()
 	end
 
 	bind("a", "<nop>", "no showing only hidden files")
-	bind("s", "<nop>", "no sort changin")
+	bind("s", "<nop>", "no sort changing")
+	bind("S", function()
+		require("spectre").toggle()
+	end, "no sort changing")
 	bind("i", "<nop>", "single dir buf preferred")
 	bind("o", "<nop>", "why would I open somethin in a horizontal split")
 	remap("n", "v", "v", { buffer = true, remap = false, desc = "idem 'o' (but vertical)" })

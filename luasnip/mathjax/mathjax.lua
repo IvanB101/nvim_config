@@ -44,13 +44,10 @@ local snippets = {
 }
 
 for key, letter in pairs(letters) do
-	table.insert(snippets, s({ trig = "," .. key, snippetType = "autosnippet" }, { t("\\" .. letter) }))
-	table.insert(
-		snippets,
-		s(
-			{ trig = "," .. string.upper(key), snippetType = "autosnippet" },
-			{ t("\\" .. string.upper(string.sub(letter, 0, 1)) .. string.sub(letter, 2)) }
-		)
+	snippets[#snippets + 1] = s({ trig = "," .. key, snippetType = "autosnippet" }, { t("\\" .. letter) })
+	snippets[#snippets + 1] = s(
+		{ trig = "," .. string.upper(key), snippetType = "autosnippet" },
+		{ t("\\" .. string.upper(string.sub(letter, 0, 1)) .. string.sub(letter, 2)) }
 	)
 end
 

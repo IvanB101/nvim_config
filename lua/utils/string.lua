@@ -1,4 +1,3 @@
-local iter = require("utils.iter")
 local M = {}
 
 ---@param str string
@@ -38,7 +37,13 @@ end
 ---@param mapper fun(strings): string
 ---@return string - result of mapping each line with mapper
 M.map_lines = function(str, mapper)
-	return iter.wrap(M.lines(str)):map(mapper):join("\n")
+	local lines = {}
+	local idx = 1
+	for line in M.lines(str) do
+		lines[idx] = mapper(line)
+		idx = idx + 1
+	end
+	return table.concat(lines, "\n")
 end
 
 return M

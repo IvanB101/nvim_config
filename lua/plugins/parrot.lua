@@ -52,10 +52,8 @@ return {
 							system_instruction = { parts = { { text = message.content } } }
 						else
 							local role = message.role == "assistant" and "model" or "user"
-							table.insert(
-								contents,
+							contents[#contents + 1] =
 								{ role = role, parts = { { text = message.content:gsub("^%s*(.-)%s*$", "%1") } } }
-							)
 						end
 					end
 					local gemini_payload = {

@@ -5,7 +5,7 @@ return {
 	config = function()
 		local spectre = require("spectre")
 
-		remap("n", "<leader>S", spectre.toggle, { desc = "toggle Spectre" })
+		remap("n", "S", spectre.toggle, { desc = "toggle Spectre" })
 
 		remap("n", "<leader>sp", function()
 			spectre.open_visual({ select_word = true })

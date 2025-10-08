@@ -8,10 +8,7 @@ M.replace_word_under_cursor = function(rep_fun)
 	vim.cmd(string.format("normal! ciw%s", new_word))
 end
 
---- visual mode (uses last selected range otherwise)
---- returns the lines in the selected range
---- even when not in line visual mode it returns the complete lines
----@return string[]
+---@return string[] - the lines in the selected range
 M.get_selected_lines = function()
 	assert(vim.fn.mode() == "v" or vim.fn.mode() == "V", "get_selected_lines should only be called in visual mode")
 

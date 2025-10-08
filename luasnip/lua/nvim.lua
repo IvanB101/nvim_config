@@ -4,9 +4,5 @@ return {
 		wordTrig = false,
 		desc = "<cmd><cr>",
 	}, fmt("<cmd>{}<cr>", i(0))),
-	s({
-		trig = "todo",
-		wordTrig = false,
-		desc = "TODO",
-	}, fmt("-- TODO: {}", i(0))),
+	s({ trig = ";to", snippetType = "autosnippet", wordTrig = false }, t("-- TODO: ")),
 }

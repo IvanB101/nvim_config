@@ -1,3 +1,3 @@
 return {
-	s({ trig = "todo" }, t("% TODO: ")),
+	s({ trig = ";to", snippetType = "autosnippet", wordTrig = false }, t("% TODO: ")),
 }

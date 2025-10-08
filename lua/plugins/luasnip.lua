@@ -14,12 +14,20 @@ local opts = {
 	update_events = "TextChanged,TextChangedI",
 }
 
+local ft_extentions = {
+	tex = { "mathjax" },
+	markdown = { "mathjax" },
+}
+
 return {
 	"L3MON4D3/LuaSnip",
 	dependencies = { "rafamadriz/friendly-snippets" },
 	config = function()
 		local ls = require("luasnip")
 		ls.setup(opts)
+		for ft, extentions in pairs(ft_extentions) do
+			ls.filetype_extend(ft, extentions)
+		end
 		loadSnippets()
 		remap("n", "<leader>L", loadSnippets, { desc = "reload snippets" })
 	end,

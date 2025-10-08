@@ -3,6 +3,8 @@ local utils = require("utils")
 
 remap("n", "<leader>e", vim.cmd.Ex, { desc = "open netrw" })
 
+remap("n", "<C-s>", "<cmd>w<cr>", { desc = "save current buffer" })
+
 remap("n", "<A-l>", "<tab>", { desc = "jump forwards in jump list" })
 remap("n", "<A-h>", "<C-o>", { desc = "jump backwards in jump list" })
 
@@ -50,10 +52,6 @@ remap("n", "<leader>q", function()
 end, { desc = "toggle quickfix list" })
 remap("n", "]q", "<cmd>cnext<cr>", { desc = "go to next entry in quickfix list" })
 remap("n", "[q", "<cmd>cprev<cr>", { desc = "go to previous entry in quickfix list" })
-
-remap("n", "<leader>lo", function()
-	vim.cmd("e" .. vim.lsp.get_log_path())
-end, { desc = "show error log" })
 
 remap("n", "<leader>vs", "<cmd>vsplit<cr>", { desc = "split window (vertical)" })
 

@@ -2,12 +2,6 @@ local str = require("utils.string")
 
 local M = {}
 
--- src dir/
--- dst dir/inner/
--- file /some/path/inner
--- dst /some/
---
-
 ---@param dst string
 ---@param files string
 ---@return string?

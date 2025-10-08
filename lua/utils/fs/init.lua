@@ -29,8 +29,7 @@ M.copy = function(files, opts)
 	if opts.clipboard == Clipboard.LOCAL then
 		clipboard = files
 	else
-		-- TODO
-		-- system cliboard
+		-- TODO: system cliboard
 	end
 	to_move = false
 end
@@ -85,7 +84,7 @@ M.paste = function(dst, opts)
 			vim.uv.fs_rename(path, dst .. name)
 		end
 		to_move = false
-		goto after_paste
+		goto refresh
 	end
 
 	for path in str.lines(clip) do
@@ -100,7 +99,7 @@ M.paste = function(dst, opts)
 		end
 	end
 
-	::after_paste::
+	::refresh::
 	M.refresh()
 end
 
@@ -187,22 +186,8 @@ M.open = function(path)
 	vim.cmd("!open " .. '"' .. path:gsub("%*$", "") .. '"')
 end
 
----@return string
-M.get_selected_files = function()
-	vim.cmd("normal! y")
-	return str.map_lines(vim.fn.getreg('"'), function(line)
-		return M.cwf() .. line
-	end)
-end
-
----@return string
-M.get_marked_files = function()
-	local files = vim.fn["netrw#Expose"]("netrwmarkfilelist")
-	if files == "n/a" then
-		return ""
-	end
-	vim.cmd("normal U")
-	return table.concat(files, "\n")
+M.debug = function()
+	print(clipboard)
 end
 
 return M

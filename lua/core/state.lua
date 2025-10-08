@@ -2,6 +2,11 @@
 --- @field root_dir string?
 local inner = {}
 
+-- TODO: quicklist
+
+-- TODO: loclist (per window)
+-- lnext and lprev to move within entries
+
 local expose = {}
 setmetatable(expose, {
 	__index = inner,

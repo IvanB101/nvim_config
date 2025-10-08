@@ -2,6 +2,7 @@ local remap = vim.keymap.set
 
 local keys = {
 	g = false,
+	i = { "INFO" },
 	t = { "TODO" },
 	w = { "WARN", "WARNING", "XXX", "CHECK" },
 }

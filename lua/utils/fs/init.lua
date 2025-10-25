@@ -14,7 +14,7 @@ end
 ---| 1 # FILES
 ---| 2 # SYSTEM
 ---@type table<string, Clipboard>
-local Clipboard = {
+M.Clipboard = {
 	LOCAL = 1,
 	SYSTEM = 2,
 }
@@ -25,8 +25,8 @@ local Clipboard = {
 ---@param opts ?Opts
 ---@param files string
 M.copy = function(files, opts)
-	opts = opts or { clipboard = Clipboard.LOCAL }
-	if opts.clipboard == Clipboard.LOCAL then
+	opts = opts or { clipboard = M.Clipboard.LOCAL }
+	if opts.clipboard == M.Clipboard.LOCAL then
 		clipboard = files
 	else
 		-- TODO: system cliboard
@@ -43,9 +43,9 @@ end
 ---@param opts? Opts
 ---@param dst string
 M.paste = function(dst, opts)
-	opts = opts or { clipboard = Clipboard.LOCAL }
+	opts = opts or { clipboard = M.Clipboard.LOCAL }
 	local clip = clipboard
-	if opts.clipboard == Clipboard.SYSTEM then
+	if opts.clipboard == M.Clipboard.SYSTEM then
 		clip = ""
 		for path in str.lines(vim.fn.getreg("+")) do
 			local stat = vim.uv.fs_stat(path)
@@ -53,7 +53,7 @@ M.paste = function(dst, opts)
 				vim.notify("Only files can be pasted in this buffer", vim.log.levels.ERROR)
 				return
 			end
-			clip = (clip and clip .. "\n" or "") .. path .. "/" .. (stat.type == "directory" and "/" or "")
+			clip = (clip and clip .. "\n" or "") .. path .. (stat.type == "directory" and "/" or "")
 		end
 	end
 

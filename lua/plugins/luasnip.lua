@@ -17,6 +17,8 @@ local opts = {
 local ft_extentions = {
 	tex = { "mathjax" },
 	markdown = { "mathjax" },
+	typescript = { "javascript" },
+	typescriptreact = { "html", "typescript" },
 }
 
 return {

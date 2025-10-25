@@ -1,9 +1,11 @@
 local snippets = {
+	s({ trig = "button" }, fmt("<button onClick={{{}}}>{}</button>", { i(1), i(0) })),
 	s({ trig = "hr" }, t("<hr>")),
-	s({ trig = "img" }, fmt('<img src="{}">', { i(1) })),
+	s({ trig = "img" }, fmt('<img src="{}"/>', { i(1) })),
 	s({ trig = "input" }, fmt('<input type="{}" id="{}" name="{}">', { i(1), i(2), i(3) })),
 	s({ trig = "inputval" }, fmt('<input type="{}" id="{}" name="{}" value="{}">', { i(1), i(2), i(3), i(4) })),
 	s({ trig = "label" }, fmt('<label for="{}">{}</label>', { i(1), i(2) })),
+	s({ trig = "link" }, fmt('<a href="{}">{}</a>', { i(1), i(0) })),
 	s(
 		{ trig = "html5" },
 		fmt(

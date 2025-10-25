@@ -1,7 +1,10 @@
 local plugins = {
 	{ "lewis6991/gitsigns.nvim" },
 	{ "mfussenegger/nvim-jdtls" },
-	{ "neovim/nvim-lspconfig" },
+	{
+		"neovim/nvim-lspconfig",
+		version = "2.4.0",
+	},
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },

@@ -1,8 +1,4 @@
 local remap = vim.keymap.set
-local function loadSnippets()
-	require("luasnip.loaders.from_lua").load({ paths = { "~/.config/nvim/luasnip/" } })
-end
-
 local opts = {
 	history = true,
 	updateevents = "TextChanged,TextChangedI",
@@ -18,7 +14,7 @@ local ft_extentions = {
 	tex = { "mathjax" },
 	markdown = { "mathjax" },
 	typescript = { "javascript" },
-	typescriptreact = { "html", "typescript" },
+	typescriptreact = { "html", "typescript", "javascriptreact" },
 }
 
 return {
@@ -26,11 +22,16 @@ return {
 	dependencies = { "rafamadriz/friendly-snippets" },
 	config = function()
 		local ls = require("luasnip")
+		local load = require("luasnip.loaders.from_lua").load
+		local paths = { "~/.config/nvim/luasnip/" }
+
 		ls.setup(opts)
 		for ft, extentions in pairs(ft_extentions) do
 			ls.filetype_extend(ft, extentions)
 		end
-		loadSnippets()
-		remap("n", "<leader>L", loadSnippets, { desc = "reload snippets" })
+		load({ paths = paths })
+		remap("n", "<leader>L", function()
+			load({ paths = paths })
+		end, { desc = "reload snippets" })
 	end,
 }

@@ -10,6 +10,9 @@ return {
 		"nvim-telescope/telescope.nvim",
 		"nvim-treesitter",
 	},
+	keys = {
+		{ "<leader>n", ":ObsidianNew " },
+	},
 	opts = {
 		workspaces = {
 			{

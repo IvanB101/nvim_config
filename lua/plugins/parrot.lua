@@ -6,6 +6,7 @@ remap("n", "<leader>I", "/🦜<cr>N", { desc = "toggle parrot" })
 
 return {
 	"frankroeder/parrot.nvim",
+	enable = false,
 	dependencies = { "ibhagwan/fzf-lua", "nvim-lua/plenary.nvim" },
 	opts = {
 		providers = {

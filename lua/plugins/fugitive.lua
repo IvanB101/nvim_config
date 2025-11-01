@@ -26,12 +26,7 @@ local function diffget(lines, target)
 end
 
 local config = function()
-	remap("n", "<F5>", "<cmd>G fetch<cr>", { desc = "Git fetch" })
-
-	remap("n", "<leader>gt", ":tab Git ", { desc = "Git status" })
-	remap("n", "<leader>gs", "<cmd>tab Git<cr>", { desc = "Git status" })
-	remap("n", "<leader>gv", "<cmd>tab Gdiffsplit<cr>", { desc = "Git diffsplit (with HEAD)" })
-	-- diff operations are vertical by default
+	-- make diff operations vertical by default
 	vim.cmd("set diffopt+=vertical")
 
 	usercmd("GitMergeResolve", function()
@@ -54,5 +49,11 @@ end
 
 return {
 	"tpope/vim-fugitive",
+	keys = {
+		{ "R", "<cmd>G fetch<cr>" },
+		{ "<leader>gt", ":tab Git " },
+		{ "<leader>gs", "<cmd>tab Git<cr>" },
+		{ "<leader>gv", "<cmd>tab Gdiffsplit<cr>" },
+	},
 	config = config,
 }

@@ -1,5 +1,5 @@
 local snippets = {
-	s({ trig = "button" }, fmt("<button onClick={{{}}}>{}</button>", { i(1), i(0) })),
+	s({ trig = "button" }, fmt("<button onclick={{{}}}>{}</button>", { i(1), i(0) })),
 	s({ trig = "hr" }, t("<hr>")),
 	s({ trig = "img" }, fmt('<img src="{}"/>', { i(1) })),
 	s({ trig = "input" }, fmt('<input type="{}" id="{}" name="{}">', { i(1), i(2), i(3) })),
@@ -32,6 +32,7 @@ local snippets = {
 }
 
 local tags = {
+	"body",
 	"dd",
 	"dl",
 	"dt",
@@ -43,6 +44,7 @@ local tags = {
 	"h4",
 	"h5",
 	"h6",
+	"head",
 	"li",
 	"ol",
 	"p",

@@ -1,6 +1,7 @@
 local remap = vim.keymap.set
 local opts = {
 	history = true,
+	region_check_events = { "CursorMoved" },
 	updateevents = "TextChanged,TextChangedI",
 	-- Enable autotriggered snippets
 	enable_autosnippets = true,

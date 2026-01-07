@@ -1,4 +1,11 @@
+local ls = require("luasnip")
+local s = ls.snippet
+local t = ls.text_node
+local i = ls.insert_node
+local fmta = require("luasnip.extras.fmt").fmta
+
 return {
+	s({ trig = ";c", snippetType = "autosnippet", desc = "c array" }, t("[*c]")),
 	s(
 		{ trig = "extern", desc = "extern struct" },
 		fmta(

@@ -16,19 +16,6 @@ remap("n", "<s-tab>", "gT", { desc = "go to previos tab" })
 
 remap("n", "D", vim.diagnostic.open_float, { desc = "open float diagnostic" })
 
-remap("n", "<leader>rp", ":%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>", {
-	desc = "replace all ocurrencies",
-})
-remap("v", "<leader>rp", 'y:%s/<C-r>"/<C-r>"/gI<Left><Left><Left>', {
-	desc = "replace all ocurrencies",
-})
-remap("n", "<leader>sr", "y/<C-r><C-w><cr>", {
-	desc = "search ocurrencies of marked text ",
-})
-remap("v", "<leader>sr", 'y/<C-r>"<cr>', {
-	desc = "search ocurrencies of marked text ",
-})
-
 remap("v", "J", ":m '>+1<CR>gv=gv", { desc = "move marked text down" })
 remap("v", "K", ":m '<-2<CR>gv=gv", { desc = "move marked text up" })
 remap("n", "J", "mzJ`z", { desc = "J maintains cursor position" })
@@ -41,8 +28,18 @@ remap({ "n", "v" }, "<leader>y", '"+y', { desc = "yank to clipboard" })
 remap({ "n", "v" }, "<leader>p", '"+p', { desc = "paste from system clipboard" })
 remap({ "n", "v" }, "<leader>P", '"+P', { desc = "paste from system clipboard before cursor" })
 
-remap("v", "r", '"_dP', { desc = "replace marked with clipboard" })
-remap("v", "<leader>r", '"_d"+P', { desc = "replace marked with system clipboard" })
+remap("n", "<leader>sw", "y/<C-r><C-w><cr>", {
+	desc = "search ocurrencies of word under cursor",
+})
+remap("v", "<Enter>", 'y/<C-r>"<cr>', {
+	desc = "search ocurrencies of marked text ",
+})
+
+remap("v", "c", '"_dP', { desc = "replace marked with clipboard" })
+remap("v", "<leader>c", '"_d"+P', { desc = "replace marked with system clipboard" })
+
+remap("v", "r", 'y:s/<C-r>"/<C-r>"/g<Left><Left>', { desc = "replace ocurrencies of marked text in line" })
+remap("v", "R", 'y:%s/<C-r>"/<C-r>"/g<Left><Left>', { desc = "replace ocurrencies of marked text in line" })
 
 remap("n", "U", "<C-r>", { desc = "redo" })
 remap("n", "<C-z>", "<nop>", { desc = "nothing" })

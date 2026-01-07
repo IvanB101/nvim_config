@@ -19,19 +19,21 @@ local function load_mappings()
 		remap("n", lhs, rhs, { buffer = true, desc = desc, remap = true })
 	end
 
+	-- Copium for muscle memory and undesired defaults
 	bind("a", "<nop>", "no showing only hidden files")
 	bind("s", "<nop>", "no sort changing")
 	bind("S", function()
 		require("spectre").toggle()
 	end, "no sort changing")
 	bind("i", "<nop>", "single dir buf preferred")
-	bind("o", "<nop>", "why would I open somethin in a horizontal split")
+	bind("o", "<nop>", "why would I open something in a horizontal split")
 	remap("n", "v", "v", { buffer = true, remap = false, desc = "idem 'o' (but vertical)" })
 
 	bind("d", function()
 		fs.debug()
 	end)
 
+	-- File copying and cutting
 	remap("v", "c", function()
 		fs.copy(get_selected_files())
 	end, { desc = "copy selected files", buffer = true })
@@ -41,7 +43,10 @@ local function load_mappings()
 	remap("v", "D", function()
 		fs.delete(get_selected_files())
 	end, { desc = "delete selected files", buffer = true })
+	remap("n", "cc", "Vc", { desc = "copy current files", buffer = true, remap = true })
+	remap("n", "xx", "Vx", { desc = "copy current files", buffer = true, remap = true })
 
+	-- File pasting
 	bind("p", function()
 		fs.paste(fs.cwd())
 	end, "paste selected files")

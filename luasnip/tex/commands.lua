@@ -1,5 +1,12 @@
 local get_visual = require("utils.snippets").get_visual
 
+local ls = require("luasnip")
+local s = ls.snippet
+local t = ls.text_node
+local i = ls.insert_node
+local d = ls.dynamic_node
+local fmta = require("luasnip.extras.fmt").fmta
+
 local snippets = {
 	s({ trig = "image" }, fmta([[\includegraphics[width=<>]{<>}]], { i(1, "\\textwidth"), i(2) })),
 	s({ trig = "link", dscr = "link (hyperref)" }, fmta([[\href{<>}{<>}]], { i(2, "url"), d(1, get_visual) })),

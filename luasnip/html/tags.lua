@@ -1,3 +1,9 @@
+local ls = require("luasnip")
+local s = ls.snippet
+local t = ls.text_node
+local i = ls.insert_node
+local fmt = require("luasnip.extras.fmt").fmt
+
 local snippets = {
 	s({ trig = "button" }, fmt("<button onclick={{{}}}>{}</button>", { i(1), i(0) })),
 	s({ trig = "hr" }, t("<hr>")),

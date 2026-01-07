@@ -1,5 +1,12 @@
 local get_visual = require("utils.snippets").get_visual
 
+local ls = require("luasnip")
+local s = ls.snippet
+local i = ls.insert_node
+local d = ls.dynamic_node
+local rep = require("luasnip.extras").rep
+local fmta = require("luasnip.extras.fmt").fmta
+
 local snippets = {
 	s(
 		{ trig = "env", desc = "begin general environment" },

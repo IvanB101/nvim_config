@@ -21,8 +21,9 @@ local plugins = {
 	{ "barreiroleo/ltex_extra.nvim" },
 	{
 		"saecki/crates.nvim",
+		tag = "stable",
 		ft = { "rust", "toml" },
-		dependencies = { "hrsh7th/nvim-cmp" },
+		dependencies = { "saghen/blink.cmp" },
 		config = true,
 	},
 	{

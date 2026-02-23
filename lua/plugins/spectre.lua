@@ -15,10 +15,10 @@ return {
 			spectre.open({ search_text = vim.fn.getreg('"') })
 		end, { desc = "search marked text cursor in project" })
 
-		remap("n", "<leader>sl", function()
+		remap("n", "<leader>sf", function()
 			spectre.open_file_search({ select_word = true })
 		end, { desc = "search currect word in file" })
-		remap("v", "<leader>sl", function()
+		remap("v", "<leader>sf", function()
 			vim.cmd("normal y")
 			local opts = { search_text = vim.fn.getreg('"') }
 			opts.path = vim.fn.fnameescape(vim.fn.expand("%:p:."))

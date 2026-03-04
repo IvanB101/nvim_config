@@ -1,5 +1,5 @@
 return {
-	java = { "google-java-format" },
+	-- java = { "google-java-format" },
 	javascript = { "prettierd" },
 	javascriptreact = { "prettierd" },
 	json = { "prettierd" },

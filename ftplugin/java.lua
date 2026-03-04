@@ -97,7 +97,7 @@ if not directory_exists(workspace_dir) then
 	os.execute("mkdir " .. workspace_dir)
 end
 -- get the current OS
-local os_name = vim.loop.os_uname().sysname:lower()
+-- local os_name = vim.loop.os_uname().sysname:lower()
 
 local bundles = {}
 local mason_path = vim.fn.glob(vim.fn.stdpath("data") .. "/mason/")
@@ -113,30 +113,32 @@ vim.list_extend(
 
 local config = {
 	cmd = {
-		"java", -- must be version 21 or higher
+		-- must be version 21 or higher
+		"/opt/homebrew/Cellar/sdkman-cli/5.19.0/libexec/candidates/java/21.0.2-open/bin/java",
 		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
 		"-Dosgi.bundles.defaultStartLevel=4",
 		"-Declipse.product=org.eclipse.jdt.ls.core.product",
 		"-Dlog.protocol=true",
 		"-Dlog.level=ALL",
 		"-javaagent:" .. install_path .. "lombok.jar",
+		-- "--module-path",
+		-- root_dir,
+		"-jar",
+		vim.fn.glob(install_path .. "plugins/org.eclipse.equinox.launcher_*.jar"),
+		"-configuration",
+		install_path .. "config_mac_arm",
+		"-Dosgi.sharedConfiguration.area.readOnly=true",
+		"-data",
+		workspace_dir,
+		"-vmargs",
 		"-Xms2g",
 		-- "-Xmx4g",
 		"-XX:ParallelGCThreads=6",
 		"-XX:ConcGCThreads=3",
-		"--module-path",
-		root_dir,
 		"--add-opens",
 		"java.base/java.util=ALL-UNNAMED",
 		"--add-opens",
 		"java.base/java.lang=ALL-UNNAMED",
-		"-jar",
-		vim.fn.glob(install_path .. "plugins/org.eclipse.equinox.launcher_*.jar"),
-		"-configuration",
-		install_path .. "config_" .. os_name,
-		"-Dosgi.sharedConfiguration.area.readOnly=true",
-		"-data",
-		workspace_dir,
 	},
 	capabilities = lsp_config.capabilities,
 	root_dir = root_dir,

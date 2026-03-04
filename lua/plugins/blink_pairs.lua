@@ -23,9 +23,12 @@ local languages = { "markdown", "markdown_inline", "typst", "latex", "plaintex" 
 local used_in_snippets = { ["("] = ")", ["["] = "]", ["{"] = "}" }
 for open, close in pairs(used_in_snippets) do
 	custom_pairs[open] = {
-		close,
-		when = not_autosnippet,
-		languages = languages,
+		{
+			close,
+			when = not_autosnippet,
+			languages = languages,
+		},
+		{ close },
 	}
 end
 

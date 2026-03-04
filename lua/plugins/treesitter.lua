@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd("Filetype", {
 })
 
 return {
-	{ "nvim-treesitter/playground" },
+	-- { "nvim-treesitter/playground" },
 	{
 		"nvim-treesitter/nvim-treesitter",
 		lazy = false,

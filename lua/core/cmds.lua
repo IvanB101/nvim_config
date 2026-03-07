@@ -16,3 +16,7 @@ end, { desc = "open current working file with default system app" })
 usercmd("Delete", function()
 	fs.delete(fs.cwf())
 end, { desc = "delete current working file" })
+
+usercmd("Messages", function()
+	vim.cmd("new | put =execute('messages')")
+end, { desc = "delete current working file" })

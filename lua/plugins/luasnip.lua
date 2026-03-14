@@ -4,9 +4,7 @@ local opts = {
 	region_check_events = { "CursorMoved" },
 	updateevents = "TextChanged,TextChangedI",
 	enable_autosnippets = true,
-	-- Use Tab (or some other key if you prefer) to trigger visual selection
 	store_selection_keys = "<Tab>",
-	-- show insert node changes live
 	update_events = "TextChanged,TextChangedI",
 }
 
@@ -34,12 +32,6 @@ return {
 			load({ paths = paths })
 		end, { desc = "reload snippets" })
 
-		remap({ "i", "s" }, "<C-n>", function()
-			ls.jump(1)
-		end, { silent = true })
-		remap({ "i", "s" }, "<C-p>", function()
-			ls.jump(-1)
-		end, { silent = true })
 		remap({ "i", "s" }, "<C-e>", function()
 			if ls.choice_active() then
 				ls.change_choice(1)

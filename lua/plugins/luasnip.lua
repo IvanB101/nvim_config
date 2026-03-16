@@ -3,17 +3,14 @@ local opts = {
 	history = true,
 	region_check_events = { "CursorMoved" },
 	updateevents = "TextChanged,TextChangedI",
-	-- Enable autotriggered snippets
 	enable_autosnippets = true,
-	-- Use Tab (or some other key if you prefer) to trigger visual selection
 	store_selection_keys = "<Tab>",
-	-- show insert node changes live
 	update_events = "TextChanged,TextChangedI",
 }
 
 local ft_extentions = {
 	tex = { "mathjax" },
-	markdown = { "mathjax" },
+	markdown = { "mathjax", "html" },
 	typescript = { "javascript" },
 	typescriptreact = { "html", "typescript", "javascriptreact" },
 }
@@ -34,5 +31,11 @@ return {
 		remap("n", "<leader>L", function()
 			load({ paths = paths })
 		end, { desc = "reload snippets" })
+
+		remap({ "i", "s" }, "<C-e>", function()
+			if ls.choice_active() then
+				ls.change_choice(1)
+			end
+		end, { silent = true })
 	end,
 }

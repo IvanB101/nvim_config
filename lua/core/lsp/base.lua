@@ -40,7 +40,7 @@ local function load_mappings(opts)
 	remap("n", "go", vim.lsp.buf.type_definition, opts)
 	remap("n", "gr", vim.lsp.buf.references, opts)
 	remap("n", "gs", vim.lsp.buf.signature_help, opts)
-	remap("n", "<leader>ra", vim.lsp.buf.rename, opts)
+	remap("n", "R", vim.lsp.buf.rename, opts)
 	remap("n", "<leader>a", vim.lsp.buf.code_action, opts)
 end
 

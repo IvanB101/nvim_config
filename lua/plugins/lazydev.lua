@@ -4,6 +4,7 @@ return {
 	opts = {
 		library = {
 			{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+			{ path = "/Applications/Hammerspoon.app/Contents/Resources/extensions/", words = { "hs%." } },
 			{ "nvim-dap-ui" },
 		},
 	},

@@ -9,6 +9,7 @@ return {
 						callback("Intellij format failed")
 					else
 						callback(nil, nil)
+                        vim.cmd("edit %")
 					end
 				end,
 			},

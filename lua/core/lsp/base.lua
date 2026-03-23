@@ -23,7 +23,7 @@ capabilities.textDocument.completion.completionItem = {
 	},
 }
 
-local formatters = require("core.formatters")
+local formatters = require("plugins.conform").opts.formatters_by_ft
 local function load_mappings(opts)
 	local ft = vim.bo[opts.buffer].filetype
 	local format = formatters[ft] and function()

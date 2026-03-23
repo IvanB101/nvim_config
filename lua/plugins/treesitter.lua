@@ -2,7 +2,7 @@ local ignored = { "latex" }
 
 -- FIX: ignores wgsl ignores ts config
 vim.api.nvim_create_autocmd("Filetype", {
-	pattern = "wgsl",
+	pattern = {"wgsl", "http"},
 	callback = function()
 		vim.cmd("TSEnable highlight")
 	end,
@@ -12,6 +12,7 @@ return {
 	-- { "nvim-treesitter/playground" },
 	{
 		"nvim-treesitter/nvim-treesitter",
+		version = "v0.9.*",
 		lazy = false,
 		opts = {
 			ensure_installed = {

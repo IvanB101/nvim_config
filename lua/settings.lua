@@ -40,3 +40,13 @@ vim.opt.ignorecase = true
 vim.g.vimtex_quickfix_open_on_warning = 0
 vim.g.vimtex_view_method = "zathura"
 vim.g.vimtex_view_general_viewer = "okular"
+
+-- FIX: vim fileformat recognition is not working properly for e2e-api repo
+vim.api.nvim_create_autocmd("BufReadPost", {
+	pattern = "**/e2e-api/*.feature",
+	callback = function(args)
+        vim.defer_fn(function ()
+            vim.bo[args.buf].ff = "unix"
+        end, 500)
+	end,
+})

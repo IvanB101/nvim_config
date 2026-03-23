@@ -96,8 +96,19 @@ local workspace_dir = vim.fn.stdpath("data") .. "/site/java/workspace/" .. proje
 if not directory_exists(workspace_dir) then
 	os.execute("mkdir " .. workspace_dir)
 end
--- get the current OS
--- local os_name = vim.loop.os_uname().sysname:lower()
+
+local os_name = vim.loop.os_uname().sysname:lower()
+local format_with_intellij = os_name == "darwin"
+local os_config = os_name == "darwin" and "mac_arm" or os_name
+
+local lsp_format = not format_with_intellij
+		and {
+			settings = {
+				url = vim.fn.glob("~/.config/nvim/lua/core/formatters/configs/jdtls.xml"),
+				profile = "CustomJavaFormat", -- The profile name in the XML
+			},
+		}
+	or nil
 
 local bundles = {}
 local mason_path = vim.fn.glob(vim.fn.stdpath("data") .. "/mason/")
@@ -113,8 +124,7 @@ vim.list_extend(
 
 local config = {
 	cmd = {
-		-- must be version 21 or higher
-		"/opt/homebrew/Cellar/sdkman-cli/5.19.0/libexec/candidates/java/21.0.2-open/bin/java",
+		"java", -- must be version 21 or higher
 		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
 		"-Dosgi.bundles.defaultStartLevel=4",
 		"-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -126,7 +136,7 @@ local config = {
 		"-jar",
 		vim.fn.glob(install_path .. "plugins/org.eclipse.equinox.launcher_*.jar"),
 		"-configuration",
-		install_path .. "config_mac_arm",
+		install_path .. "config_" .. os_config,
 		"-Dosgi.sharedConfiguration.area.readOnly=true",
 		"-data",
 		workspace_dir,
@@ -176,12 +186,7 @@ local config = {
 			referencesCodeLens = { enabled = false },
 			implementationsCodeLens = { enabled = false },
 			inlayHints = { parameterNames = { enabled = "none" } },
-			format = {
-				settings = {
-					url = vim.fn.glob("~/.config/nvim/lua/core/formatters/configs/jdtls.xml"),
-					profile = "CustomJavaFormat", -- The profile name in the XML
-				},
-			},
+			format = lsp_format,
 		},
 	},
 	init_options = {
@@ -192,6 +197,11 @@ local config = {
 		load_mappings({ buffer = bufnr })
 		require("jdtls.dap").setup_dap_main_class_configs()
 		jdtls.setup_dap({ hotcodereplace = "auto" })
+		if not lsp_format then
+			vim.keymap.set("n", "<leader>fm", function()
+				require("conform").format({ async = true })
+			end, { buffer = true })
+		end
 	end,
 }
 

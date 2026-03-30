@@ -43,10 +43,10 @@ vim.g.vimtex_view_general_viewer = "okular"
 
 -- FIX: vim fileformat recognition is not working properly for e2e-api repo
 vim.api.nvim_create_autocmd("BufReadPost", {
-	pattern = "**/e2e-api/*.feature",
+	pattern = { "**/e2e-api/*.feature", "**/e2e-api/*.yml" },
 	callback = function(args)
-        vim.defer_fn(function ()
-            vim.bo[args.buf].ff = "unix"
-        end, 500)
+		vim.defer_fn(function()
+			vim.bo[args.buf].ff = "unix"
+		end, 200)
 	end,
 })

@@ -94,6 +94,6 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd({ "FileType", "BufWritePost" }, {
 	pattern = "netrw",
 	callback = function()
-		-- TODO: highlinhts
+		-- TODO: highlights
 	end,
 })

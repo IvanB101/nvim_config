@@ -9,6 +9,16 @@ usercmd("Cwf", function()
 	vim.notify(fs.cwf(), vim.log.levels.INFO)
 end, { desc = "show current working file" })
 
+usercmd("Cd", function()
+    local dir = fs.cwd()
+    vim.fn.setreg("+", dir)
+end, { desc = "show current working file" })
+
+usercmd("Cf", function()
+    local file = vim.fn.fnamemodify(fs.cwf(), ":t")
+    vim.fn.setreg("+", file)
+end, { desc = "show current working file" })
+
 usercmd("Open", function()
 	fs.open(fs.cwf())
 end, { desc = "open current working file with default system app" })

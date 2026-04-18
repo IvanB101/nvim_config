@@ -5,6 +5,8 @@ local mason_map = require("mason-lspconfig.mappings").get_mason_map()
 
 local exclude = {
 	"jdtls",
+	"stylua",
+	-- "lua-language-server",
 }
 
 for _, package in ipairs(registry.get_installed_packages()) do

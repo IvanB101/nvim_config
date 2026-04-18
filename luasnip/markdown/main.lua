@@ -10,6 +10,17 @@ local snippets = {
 			return vim.fn.getreg("+")
 		end) })
 	),
+	s(
+		{ trig = "json" },
+		fmta(
+			[[
+        ```json
+        <>
+        ```
+        ]],
+			{ i(1) }
+		)
+	),
 }
 
 return snippets

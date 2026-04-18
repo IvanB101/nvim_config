@@ -96,8 +96,19 @@ local workspace_dir = vim.fn.stdpath("data") .. "/site/java/workspace/" .. proje
 if not directory_exists(workspace_dir) then
 	os.execute("mkdir " .. workspace_dir)
 end
--- get the current OS
+
 local os_name = vim.loop.os_uname().sysname:lower()
+local format_with_intellij = os_name == "darwin"
+local os_config = os_name == "darwin" and "mac_arm" or os_name
+
+local lsp_format = not format_with_intellij
+		and {
+			settings = {
+				url = vim.fn.glob("~/.config/nvim/lua/core/formatters/configs/jdtls.xml"),
+				profile = "CustomJavaFormat", -- The profile name in the XML
+			},
+		}
+	or nil
 
 local bundles = {}
 local mason_path = vim.fn.glob(vim.fn.stdpath("data") .. "/mason/")
@@ -120,23 +131,24 @@ local config = {
 		"-Dlog.protocol=true",
 		"-Dlog.level=ALL",
 		"-javaagent:" .. install_path .. "lombok.jar",
+		-- "--module-path",
+		-- root_dir,
+		"-jar",
+		vim.fn.glob(install_path .. "plugins/org.eclipse.equinox.launcher_*.jar"),
+		"-configuration",
+		install_path .. "config_" .. os_config,
+		"-Dosgi.sharedConfiguration.area.readOnly=true",
+		"-data",
+		workspace_dir,
+		"-vmargs",
 		"-Xms2g",
 		-- "-Xmx4g",
 		"-XX:ParallelGCThreads=6",
 		"-XX:ConcGCThreads=3",
-		"--module-path",
-		root_dir,
 		"--add-opens",
 		"java.base/java.util=ALL-UNNAMED",
 		"--add-opens",
 		"java.base/java.lang=ALL-UNNAMED",
-		"-jar",
-		vim.fn.glob(install_path .. "plugins/org.eclipse.equinox.launcher_*.jar"),
-		"-configuration",
-		install_path .. "config_" .. os_name,
-		"-Dosgi.sharedConfiguration.area.readOnly=true",
-		"-data",
-		workspace_dir,
 	},
 	capabilities = lsp_config.capabilities,
 	root_dir = root_dir,
@@ -174,12 +186,7 @@ local config = {
 			referencesCodeLens = { enabled = false },
 			implementationsCodeLens = { enabled = false },
 			inlayHints = { parameterNames = { enabled = "none" } },
-			format = {
-				settings = {
-					url = vim.fn.glob("~/.config/nvim/lua/core/formatters/configs/jdtls.xml"),
-					profile = "CustomJavaFormat", -- The profile name in the XML
-				},
-			},
+			format = lsp_format,
 		},
 	},
 	init_options = {
@@ -190,6 +197,11 @@ local config = {
 		load_mappings({ buffer = bufnr })
 		require("jdtls.dap").setup_dap_main_class_configs()
 		jdtls.setup_dap({ hotcodereplace = "auto" })
+		if not lsp_format then
+			vim.keymap.set("n", "<leader>fm", function()
+				require("conform").format({ async = true })
+			end, { buffer = true })
+		end
 	end,
 }
 

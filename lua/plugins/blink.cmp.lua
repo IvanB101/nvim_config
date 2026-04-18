@@ -6,8 +6,6 @@ return {
 	opts = {
 		keymap = {
 			preset = "enter",
-			["<s-tab>"] = { "select_prev", "fallback" },
-			["<tab>"] = { "select_next", "fallback" },
 		},
 		signature = { enabled = true },
 		snippets = { preset = "luasnip" },

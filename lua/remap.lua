@@ -39,8 +39,6 @@ remap("v", "<Enter>", 'y/<C-r>"<cr>', {
 remap("n", "<leader>q", function()
 	utils.quickfix.toggle()
 end, { desc = "toggle quickfix list" })
-remap("n", "]q", "<cmd>cnext<cr>", { desc = "go to next entry in quickfix list" })
-remap("n", "[q", "<cmd>cprev<cr>", { desc = "go to previous entry in quickfix list" })
 
 remap("n", "<leader>vs", "<cmd>vsplit<cr>", { desc = "split window (vertical)" })
 remap("n", "<leader>hs", "<cmd>split<cr>", { desc = "split window (horizontal)" })

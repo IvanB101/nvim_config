@@ -29,6 +29,7 @@ local opts = {
 
 return {
 	"tiagovla/tokyodark.nvim",
+    -- enabled = false,
 	config = function()
 		require("tokyodark").setup(opts) -- calling setup is optional
 		vim.cmd([[colorscheme tokyodark]])

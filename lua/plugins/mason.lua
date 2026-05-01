@@ -1,4 +1,8 @@
 local opts = {
+	ui = {
+		border = "rounded",
+        backdrop = 100,
+	},
 	ensure_installed = {
 		"beautysh",
 		"black",

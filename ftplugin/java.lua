@@ -200,4 +200,6 @@ local config = {
 	end,
 }
 
+vim.opt_local.colorcolumn = "120"
+
 jdtls.start_or_attach(config)

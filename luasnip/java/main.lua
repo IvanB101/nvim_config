@@ -1,8 +1,15 @@
 local ls = require("luasnip")
 local s = ls.snippet
-local i = ls.insert_node
-local fmt = require("luasnip.extras.fmt").fmt
+local f = ls.function_node
 
 return {
-	s({ trig = "warn", desc = "todo comments" }, fmt("// WARN: {}", i(0))),
+	s(
+		{ trig = "print", desc = "print value in vim clipboard" },
+		f(function()
+			local var = vim.fn.getreg("+")
+			return string.format('System.out.println("%s: " + %s);', var, var)
+		end, {})
+	),
+	-- TODO: DTO
+	-- TODO: converter?
 }

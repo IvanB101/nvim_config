@@ -4,13 +4,8 @@ return {
 		formatters = {
 			idea_format = {
 				format = function(self, ctx, lines, callback)
-					vim.fn.system("format.sh -allowDefaults " .. ctx.filename)
-					if vim.v.shell_error ~= 0 then
-						callback("Intellij format failed")
-					else
-						callback(nil, nil)
-                        vim.cmd("edit %")
-					end
+					vim.fn.system({"curl", "http://localhost:63342/api/format\\?path=" .. ctx.filename})
+                    vim.cmd("edit ".. ctx.filename)
 				end,
 			},
 		},

@@ -1,8 +1,8 @@
 local ignored = { "latex" }
 
--- FIX: ignores wgsl ignores ts config
+-- FIX: for these filetypes enable ts highlights are not automatically enabled
 vim.api.nvim_create_autocmd("Filetype", {
-	pattern = {"wgsl", "http"},
+	pattern = {"wgsl", "http", "odin"},
 	callback = function()
 		vim.cmd("TSEnable highlight")
 	end,
@@ -32,8 +32,6 @@ return {
 			},
 			sync_install = false,
 			ignore_install = ignored,
-			-- Automatically install missing parsers when entering buffer
-			-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
 			auto_install = true,
 			highlight = {
 				enable = true,

@@ -120,6 +120,7 @@ local groups = {
 		FugitiveUnstagedSection = { fg = colors.white.base },
 		FugitiveHash = { fg = colors.orange.base },
 		FugitiveRef = { fg = colors.white.base },
+		["@keyword.operator"] = { link = "keyword" },
 	},
 }
 

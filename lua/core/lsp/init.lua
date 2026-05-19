@@ -3,11 +3,20 @@ local base = require("core.lsp.base")
 local registry = require("mason-registry")
 local mason_map = require("mason-lspconfig.mappings").get_mason_map()
 
+local custom_lsps = {
+	"idea_lsp",
+}
+
 local exclude = {
 	"jdtls",
 	"stylua",
-	-- "lua-language-server",
 }
+
+for _, lsp in ipairs(custom_lsps) do
+	local config = vim.tbl_deep_extend("keep", assert(require("core.lsp.configs." .. lsp)), base)
+	vim.lsp.config(lsp, config)
+	vim.lsp.enable(lsp)
+end
 
 for _, package in ipairs(registry.get_installed_packages()) do
 	if vim.list_contains(exclude, package.name) then

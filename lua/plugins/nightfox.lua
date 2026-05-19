@@ -10,7 +10,7 @@ local colors = {
 	},
 	white = {
 		dim = "#6f6f6f",
-		base = "#eeeeee",
+		base = "#dddddd",
 	},
 	orange = {
 		base = "#f6754b",
@@ -71,7 +71,7 @@ local specs = {
 			ident = colors.white.dim, -- telescope cursor
 			keyword = colors.purple.base,
 			number = colors.yellow.base,
-			operator = colors.white.base,
+			operator = colors.purple.base,
 			preproc = colors.pink.base,
 			regex = "#e0c989",
 			statement = "#000000",
@@ -121,6 +121,10 @@ local groups = {
 		FugitiveHash = { fg = colors.orange.base },
 		FugitiveRef = { fg = colors.white.base },
 		["@keyword.operator"] = { link = "keyword" },
+		["@variable.kulala_http"] = { link = "variable" },
+		yamlBlockMappingKey = { fg = colors.orange.base },
+        cucumberScenario = { link = "type" },
+        cucumberTags = { link = "preproc" },
 	},
 }
 

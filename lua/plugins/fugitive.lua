@@ -19,6 +19,7 @@ return {
 		{ "<leader>gt", ":tab Git " },
 		{ "<leader>gs", "<cmd>tab Git<cr>" },
 		{ "<leader>gv", "<cmd>tab Gdiffsplit<cr>" },
+		{ "<leader>gb", "<cmd>Git blame<cr>" },
 	},
 	config = config,
 }

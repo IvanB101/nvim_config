@@ -2,7 +2,7 @@ local ignored = { "latex" }
 
 -- FIX: for these filetypes enable ts highlights are not automatically enabled
 vim.api.nvim_create_autocmd("Filetype", {
-	pattern = {"wgsl", "http", "odin"},
+	pattern = {"wgsl", "http", "odin", "ts"},
 	callback = function()
 		vim.cmd("TSEnable highlight")
 	end,

@@ -13,7 +13,7 @@ local special_comments = {
 	"hack",
 	"note",
 	"perf",
-	"test",
+	"check",
 	"todo",
 	"warn",
 }

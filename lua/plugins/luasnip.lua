@@ -28,7 +28,7 @@ return {
 			ls.filetype_extend(ft, extentions)
 		end
 		load({ paths = paths })
-		remap("n", "<leader>L", function()
+        vim.api.nvim_create_user_command("ReloadSnippets", function()
 			load({ paths = paths })
 		end, { desc = "reload snippets" })
 

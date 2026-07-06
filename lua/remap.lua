@@ -26,7 +26,6 @@ remap("v", "<leader>c", '"_d"+P', { desc = "replace marked with system clipboard
 
 remap("v", "r", 'y:s/<C-r>"/<C-r>"/g<Left><Left>', { desc = "replace ocurrencies of marked text in line" })
 remap("v", "R", 'y:%s/<C-r>"/<C-r>"/g<Left><Left>', { desc = "replace ocurrencies of marked text in whole buffer" })
--- TODO: replace but for selected range
 
 remap("n", "U", "<C-r>", { desc = "redo" })
 remap("n", "<C-z>", "<nop>", { desc = "nothing" })
@@ -64,3 +63,4 @@ remap("c", "<C-h>", "<s-left>", { desc = "go left one word" })
 remap("c", "<C-l>", "<s-right>", { desc = "go right one word" })
 
 remap("c", "<C-g>", "\\(\\)<left><left>", { desc = "open capture group" })
+remap("c", "<C-v>", "'<,'>", { desc = "last selection marks" })

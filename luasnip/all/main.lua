@@ -11,6 +11,7 @@ local special_comments = {
 	"error",
 	"fix",
 	"hack",
+	"info",
 	"note",
 	"perf",
 	"check",

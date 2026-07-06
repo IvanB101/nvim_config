@@ -123,8 +123,9 @@ local groups = {
 		["@keyword.operator"] = { link = "keyword" },
 		["@variable.kulala_http"] = { link = "variable" },
 		yamlBlockMappingKey = { fg = colors.orange.base },
-        cucumberScenario = { link = "type" },
-        cucumberTags = { link = "preproc" },
+		cucumberScenario = { link = "type" },
+		cucumberTags = { link = "preproc" },
+		["@type.builtin.odin"] = { link = "@lsp.type.interface" },
 	},
 }
 

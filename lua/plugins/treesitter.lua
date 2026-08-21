@@ -1,19 +1,12 @@
 local ignored = { "latex" }
 
--- FIX: for these filetypes enable ts highlights are not automatically enabled
-vim.api.nvim_create_autocmd("Filetype", {
-	pattern = {"wgsl", "http", "odin", "ts"},
-	callback = function()
-		vim.cmd("TSEnable highlight")
-	end,
-})
-
 return {
 	{ "nvim-treesitter/playground" },
 	{
 		"nvim-treesitter/nvim-treesitter",
 		version = "v0.9.*",
 		lazy = false,
+		main = "nvim-treesitter.configs", -- TODO: remove when migrated to 0.12
 		opts = {
 			ensure_installed = {
 				"c",

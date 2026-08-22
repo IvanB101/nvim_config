@@ -70,5 +70,6 @@ end
 return {
 	"mrcjkb/rustaceanvim",
 	lazy = false,
+    version = "^8",
 	config = config,
 }

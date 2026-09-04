@@ -36,7 +36,7 @@ remap("n", "<leader>sw", function()
 	vim.fn.setreg("a", vim.fn.expand("<cword>"))
 	vim.cmd("normal! /<C-r>a<cr>")
 end, { desc = "search ocurrencies of word under cursor" })
-remap("v", "<Enter>", function()
+remap("v", "<leader>sr", function()
 	local text = editor.get_selected_text()
 	assert(#text == 1, "multiline text search is not supported")
 

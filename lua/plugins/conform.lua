@@ -7,10 +7,21 @@ return {
 	"stevearc/conform.nvim",
 	opts = {
 		formatters = {
+			idea_format_headless = {
+				format = function(_, ctx, _, callback)
+					vim.fn.system("format.sh -allowDefaults " .. ctx.filename)
+					if vim.v.shell_error ~= 0 then
+						callback("Intellij format failed")
+					else
+						callback(nil, nil)
+						vim.cmd("edit %")
+					end
+				end,
+			},
 			idea_format = {
 				format = function(_, ctx, _, _)
-					vim.fn.system({"curl", "http://localhost:63342/api/format\\?path=" .. ctx.filename})
-                    vim.cmd("edit ".. ctx.filename)
+					vim.fn.system({ "curl", "http://localhost:63342/api/format\\?path=" .. ctx.filename })
+					vim.cmd("edit " .. ctx.filename)
 				end,
 			},
 		},
@@ -29,4 +40,3 @@ return {
 		-- },
 	},
 }
-

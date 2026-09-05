@@ -20,4 +20,17 @@ M.get_selected_lines = function()
 	return vim.api.nvim_buf_get_lines(0, ls, le + 1, false)
 end
 
+---@return string[] - the text in the selected range
+M.get_selected_text = function()
+	assert(vim.fn.mode() == "v" or vim.fn.mode() == "V", "get_selected_text should only be called in visual mode")
+
+	vim.cmd("normal! :<C-u><cr>")
+	local _, ls, cs = unpack(vim.fn.getpos("'<"))
+	local _, le, ce = unpack(vim.fn.getpos("'>"))
+
+	ls, le = ls - 1, le - 1
+	cs = cs - 1
+	return vim.api.nvim_buf_get_text(0, ls, cs, le, ce, {})
+end
+
 return M

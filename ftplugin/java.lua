@@ -197,12 +197,9 @@ local config = {
 		load_mappings({ buffer = bufnr })
 		require("jdtls.dap").setup_dap_main_class_configs()
 		jdtls.setup_dap({ hotcodereplace = "auto" })
-		if not lsp_format then
-			vim.keymap.set("n", "<leader>fm", function()
-				require("conform").format({ async = true })
-			end, { buffer = true })
-		end
 	end,
 }
+
+vim.opt_local.colorcolumn = "120"
 
 jdtls.start_or_attach(config)

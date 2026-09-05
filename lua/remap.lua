@@ -1,5 +1,6 @@
 local remap = vim.keymap.set
 local utils = require("utils")
+local editor = utils.editor
 
 remap("n", "<leader>e", vim.cmd.Ex, { desc = "open netrw" })
 
@@ -24,26 +25,28 @@ remap("v", "c", '"_dP', { desc = "replace marked with clipboard" })
 remap("v", "<leader>c", '"_d"+P', { desc = "replace marked with system clipboard" })
 
 remap("v", "r", 'y:s/<C-r>"/<C-r>"/g<Left><Left>', { desc = "replace ocurrencies of marked text in line" })
-remap("v", "R", 'y:%s/<C-r>"/<C-r>"/g<Left><Left>', { desc = "replace ocurrencies of marked text in line" })
+remap("v", "R", 'y:%s/<C-r>"/<C-r>"/g<Left><Left>', { desc = "replace ocurrencies of marked text in whole buffer" })
 
 remap("n", "U", "<C-r>", { desc = "redo" })
 remap("n", "<C-z>", "<nop>", { desc = "nothing" })
 
-remap("n", "<leader>sw", "y/<C-r><C-w><cr>", {
-	desc = "search ocurrencies of word under cursor",
-})
-remap("v", "<Enter>", 'y/<C-r>"<cr>', {
-	desc = "search ocurrencies of marked text ",
-})
+remap("n", "<C-r>", "<cmd>e %<cr>", { desc = "refresh" })
+
+remap("n", "<leader>sw", function()
+	vim.fn.setreg("a", vim.fn.expand("<cword>"))
+	vim.cmd("normal! /<C-r>a<cr>")
+end, { desc = "search ocurrencies of word under cursor" })
+remap("v", "<leader>sr", function()
+	local text = editor.get_selected_text()
+	assert(#text == 1, "multiline text search is not supported")
+
+	vim.fn.setreg("/", text[1])
+	vim.cmd("normal! n")
+end, { desc = "search ocurrencies of marked text " })
 
 remap("n", "<leader>q", function()
 	utils.quickfix.toggle()
 end, { desc = "toggle quickfix list" })
-remap("n", "]q", "<cmd>cnext<cr>", { desc = "go to next entry in quickfix list" })
-remap("n", "[q", "<cmd>cprev<cr>", { desc = "go to previous entry in quickfix list" })
-
-remap("n", "<leader>vs", "<cmd>vsplit<cr>", { desc = "split window (vertical)" })
-remap("n", "<leader>hs", "<cmd>split<cr>", { desc = "split window (horizontal)" })
 
 remap("n", "<C-n>", "gt", { desc = "go to next tab" })
 remap("n", "<C-p>", "gT", { desc = "go to previos tab" })
@@ -60,3 +63,4 @@ remap("c", "<C-h>", "<s-left>", { desc = "go left one word" })
 remap("c", "<C-l>", "<s-right>", { desc = "go right one word" })
 
 remap("c", "<C-g>", "\\(\\)<left><left>", { desc = "open capture group" })
+remap("c", "<C-v>", "'<,'>", { desc = "last selection marks" })

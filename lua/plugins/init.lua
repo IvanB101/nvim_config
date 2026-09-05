@@ -1,4 +1,4 @@
-local plugins = {
+return {
 	{ "lewis6991/gitsigns.nvim" },
 	{ "mfussenegger/nvim-jdtls" },
 	{
@@ -8,15 +8,6 @@ local plugins = {
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
-	},
-	{
-		"numToStr/Comment.nvim",
-		config = true,
-	},
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = true,
 	},
 	{ "barreiroleo/ltex_extra.nvim" },
 	{
@@ -36,5 +27,3 @@ local plugins = {
 		dependencies = { "mfussenegger/nvim-dap" },
 	},
 }
-
-return plugins

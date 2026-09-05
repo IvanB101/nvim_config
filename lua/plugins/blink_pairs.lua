@@ -34,7 +34,7 @@ end
 
 return {
 	"saghen/blink.pairs",
-	version = "v0.5.0",
+    version = "v0.5",
 	-- download prebuilt binaries from github releases
 	dependencies = "saghen/blink.download",
 	--- @module 'blink.pairs'

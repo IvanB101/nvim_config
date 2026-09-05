@@ -8,7 +8,7 @@ local function on_attach()
 	remap("n", "go", vim.lsp.buf.type_definition, opts)
 	remap("n", "gr", vim.lsp.buf.references, opts)
 	remap("n", "gs", vim.lsp.buf.signature_help, opts)
-	remap("n", "<leader>ra", vim.lsp.buf.rename, opts)
+	remap("n", "R", vim.lsp.buf.rename, opts)
 	remap({ "n", "x" }, "<leader>fm", function()
 		vim.lsp.buf.format({ async = true })
 	end, opts)
@@ -70,5 +70,6 @@ end
 return {
 	"mrcjkb/rustaceanvim",
 	lazy = false,
+    version = "^8",
 	config = config,
 }

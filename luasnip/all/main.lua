@@ -11,9 +11,10 @@ local special_comments = {
 	"error",
 	"fix",
 	"hack",
+	"info",
 	"note",
 	"perf",
-	"test",
+	"check",
 	"todo",
 	"warn",
 }
@@ -23,7 +24,7 @@ for _, tag in ipairs(special_comments) do
 		{ trig = tag },
 		d(1, function(_, parent)
 			local env = parent.snippet.env
-			return sn(nil, fmt(env.LINE_COMMENT .. " TODO: {}", i(0)))
+			return sn(nil, fmt(env.LINE_COMMENT .. " " .. tag:upper() .. ": {}", i(0)))
 		end, {})
 	)
 end

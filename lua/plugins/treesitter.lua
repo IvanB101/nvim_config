@@ -1,39 +1,36 @@
 local ignored = { "latex" }
 
--- FIX: ignores wgsl ignores ts config
-vim.api.nvim_create_autocmd("Filetype", {
-	pattern = {"wgsl", "http"},
-	callback = function()
-		vim.cmd("TSEnable highlight")
-	end,
-})
-
 return {
-	-- { "nvim-treesitter/playground" },
+	{ "nvim-treesitter/playground" },
 	{
 		"nvim-treesitter/nvim-treesitter",
 		version = "v0.9.*",
 		lazy = false,
+		main = "nvim-treesitter.configs", -- TODO: remove when migrated to 0.12
 		opts = {
 			ensure_installed = {
+				"angular",
 				"c",
 				"java",
 				"javascript",
+                "json",
 				"lua",
 				"markdown",
 				"markdown_inline",
-				"typescript",
+                "odin",
 				"query",
 				"rust",
+                "sql",
+				"typescript",
 				"vim",
 				"vimdoc",
+                "xml",
+                "yaml",
 				"wgsl",
 				"zig",
 			},
 			sync_install = false,
 			ignore_install = ignored,
-			-- Automatically install missing parsers when entering buffer
-			-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
 			auto_install = true,
 			highlight = {
 				enable = true,

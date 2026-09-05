@@ -33,6 +33,18 @@ local snippets = {
 			{ i(1), i(0) }
 		)
 	),
+	s(
+		{ trig = "struct" },
+		fmta(
+			[[
+                #[derive(Debug, Clone)]
+                struct <> {
+                    <>
+                }
+    ]],
+			{ i(1), i(0) }
+		)
+	),
 }
 
 return snippets

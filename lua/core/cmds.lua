@@ -21,6 +21,6 @@ end, { desc = "delete current working file" })
 
 usercmd("Messages", function()
 	vim.cmd("tab new")
-    vim.bo.buftype = "nofile"
+	vim.bo.buftype = "nofile"
 	vim.cmd("put =execute('messages')")
 end, { desc = "delete current working file" })

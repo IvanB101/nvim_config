@@ -1,7 +1,7 @@
 local opts = {
 	ui = {
 		border = "rounded",
-        backdrop = 100,
+		backdrop = 100,
 	},
 	ensure_installed = {
 		"beautysh",
@@ -19,6 +19,7 @@ local opts = {
 		"lua-language-server",
 		"ltex-ls",
 		"mypy",
+		"ols",
 		"pyright",
 		"stylua",
 		"tailwindcss-language-server",

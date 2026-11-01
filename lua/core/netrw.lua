@@ -13,11 +13,18 @@ end
 vim.api.nvim_set_hl(0, "Copying", { bg = "#ff0000", fg = "#fabd2f", bold = true })
 vim.api.nvim_set_hl(0, "Moving", { bg = "#00ff00", fg = "#fabd2f", bold = true })
 
+---@return string
+local function path_under_cursor()
+	return fs.cwd() .. vim.fn.expand("<cfile>")
+end
+
 local function load_mappings()
 	local remap = vim.keymap.set
 	local bind = function(lhs, rhs, desc)
 		remap("n", lhs, rhs, { buffer = true, desc = desc, remap = true })
 	end
+
+	remap("n", "C-r", "e %", { buffer = true, desc = "refresh buffer" })
 
 	-- Copium for muscle memory and undesired defaults
 	bind("a", "<nop>", "no showing only hidden files")
@@ -33,6 +40,13 @@ local function load_mappings()
 		fs.debug()
 	end)
 
+	remap("n", "<leader>x", function()
+		vim.cmd("!chmod +x " .. path_under_cursor())
+		vim.cmd("e %")
+	end, { buffer = true, desc = "make file executable" })
+	remap("n", "<leader>r", function()
+		vim.cmd("1TermExec cmd='" .. path_under_cursor() .. "'")
+	end, { buffer = true, desc = "make file executable" })
 	-- File copying and cutting
 	remap("v", "c", function()
 		fs.copy(get_selected_files())

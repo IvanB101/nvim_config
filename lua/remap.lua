@@ -31,6 +31,7 @@ remap("n", "U", "<C-r>", { desc = "redo" })
 remap("n", "<C-z>", "<nop>", { desc = "nothing" })
 
 remap("n", "<C-r>", "<cmd>e %<cr>", { desc = "refresh" })
+remap("n", "<leader>ov", "<cmd>only<cr><cmd>vsplit<cr>", { desc = "only + vsplit" })
 
 remap("n", "<leader>sw", function()
 	vim.fn.setreg("a", vim.fn.expand("<cword>"))

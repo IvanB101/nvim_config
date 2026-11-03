@@ -34,6 +34,9 @@ end
 
 local config = function()
 	vim.cmd("set diffopt+=vertical") -- make diff operations vertical by default
+
+	remap("n", "]c", "^<<<<<<<<", { desc = "go to next conflict marker" })
+
 	local select_conflict_marker = "?^<<<<<<<<CR> V /^>>>>>>><CR>"
 	remap("n", "<leader>L", select_conflict_marker .. ":diffget //3<CR>")
 	remap("n", "<leader>H", select_conflict_marker .. ":diffget //2<CR>")
